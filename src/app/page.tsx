@@ -172,7 +172,7 @@ export default function Home() {
             </div>
             <div className="mt-4 text-center">
               <p className="text-sm" style={{ color: "var(--color-light-50)" }}>
-                This video was made by Hendrick Kuo and contains footage of our
+                This video was made by <a href="https://hhkuo.org/" target="_blank" rel="noopener noreferrer" style={{ color: "var(--color-compsigh)" }}>Hendrick Kuo</a> and contains footage of our
                 most recent hackathon Bloom
               </p>
             </div>
