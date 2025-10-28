@@ -12,6 +12,25 @@ interface FAQItem {
 
 const faqData: FAQItem[] = [
   {
+    id: "what-when-where",
+    question: "What, When, Where?",
+    answer: (
+      <>
+        <p>
+          Check out our{" "}
+          <a
+            href="/agenda"
+            className="text-compsigh cursor-pointer hover:underline hover:decoration-[var(--color-compsigh)]"
+            style={{ color: "var(--color-compsigh)" }}
+          >
+            full agenda
+          </a>{" "}
+          for detailed schedule and locations.
+        </p>
+      </>
+    ),
+  },
+  {
     id: "eligibility",
     question: "Who can participate?",
     answer: (
