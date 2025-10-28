@@ -1,0 +1,77 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-ia-writer-quattro), ui-sans-serif, system-ui, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-tronica-mono: var(--font-tronica-mono);
+}
+
+/* Raw colors - no theming */
+:root {
+  --color-dark:        hsla(38deg, 10%, 2%, 1.0);
+  --color-dark-10:     hsla(38deg, 10%, 2%, 0.1);
+  --color-dark-30:     hsla(38deg, 10%, 2%, 0.3);
+  --color-light:       hsla(38deg, 100%, 90%, 1.0);
+  --color-light-50:    hsla(38deg, 100%, 90%, 0.5);
+  --color-compsigh:    hsla(38deg, 100%, 50%, 1.0);
+  --color-compsigh-60: hsla(38deg, 100%, 50%, 0.6);
+  --color-light-10:    hsla(38deg, 100%, 90%, 0.1);
+  --color-light-30:    hsla(38deg, 100%, 90%, 0.3);
+}
+
+/* Apply colors and font to body */
+body {
+  background-color: var(--color-dark);
+  color: var(--color-light);
+  font-family: var(--font-ia-writer-quattro), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Smooth scrolling for anchor links */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Offset for navigation */
+section[id] {
+  scroll-margin-top: 2rem;
+}
+
+/* Custom fade animation for blinking cursor */
+@keyframes fade {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Accordion animations */
+@keyframes accordion-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
+
+.animate-accordion-down {
+  animation: accordion-down 300ms ease-out;
+}
+
+.animate-accordion-up {
+  animation: accordion-up 300ms ease-out;
+}
