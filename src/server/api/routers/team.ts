@@ -7,7 +7,6 @@ import {
 } from "~/server/api/trpc";
 
 export const teamRouter = createTRPCRouter({
-
   create: protectedProcedure
     .input(z.object({ name: z.string().min(1) }))
     .mutation(async ({ ctx, input }) => {
@@ -97,7 +96,7 @@ export const teamRouter = createTRPCRouter({
 
       // Check if team name already exists (excluding current team)
       const existingTeam = await ctx.db.team.findFirst({
-        where: { 
+        where: {
           name: input.name,
           id: { not: user.teamId },
         },
@@ -173,7 +172,7 @@ export const teamRouter = createTRPCRouter({
       z.object({
         toUserId: z.string(),
         message: z.string().optional(),
-      })
+      }),
     )
     .mutation(async ({ ctx, input }) => {
       // Check if the sender is in a team
@@ -332,4 +331,3 @@ export const teamRouter = createTRPCRouter({
     });
   }),
 });
-

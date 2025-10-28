@@ -7,7 +7,6 @@ import {
 } from "~/server/api/trpc";
 
 export const participantRouter = createTRPCRouter({
-
   updateName: protectedProcedure
     .input(z.object({ name: z.string().min(1) }))
     .mutation(async ({ ctx, input }) => {
@@ -29,8 +28,15 @@ export const participantRouter = createTRPCRouter({
   updateGraduatingClass: protectedProcedure
     .input(
       z.object({
-        graduatingClass: z.enum(["CO2029", "CO2028", "CO2027", "CO2026", "CO2025", "MASTERS"]),
-      })
+        graduatingClass: z.enum([
+          "CO2029",
+          "CO2028",
+          "CO2027",
+          "CO2026",
+          "CO2025",
+          "MASTERS",
+        ]),
+      }),
     )
     .mutation(async ({ ctx, input }) => {
       return await ctx.db.user.update({
@@ -56,4 +62,3 @@ export const participantRouter = createTRPCRouter({
     return user;
   }),
 });
-

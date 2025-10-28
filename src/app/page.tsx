@@ -18,15 +18,14 @@ export default function Home() {
           rel="noopener noreferrer"
           className="flex h-10 items-center space-x-3"
         >
-          <Image src="/compsigh-logo-glowing.png" alt="compsigh" width={100} height={100} className="h-full w-auto" />
-          <span
-            className="font-tronica-mono text-xl sm:text-2xl"
-            style={{
-              fontFamily: "var(--font-tronica-mono)",
-              color: "var(--color-compsigh)",
-              textShadow: "0 0 10px var(--color-compsigh-60)"
-            }}
-          >
+          <Image
+            src="/compsigh-logo-glowing.png"
+            alt="compsigh"
+            width={100}
+            height={100}
+            className="h-full w-auto"
+          />
+          <span className="font-tronica-mono text-xl text-[var(--color-compsigh)] [text-shadow:0_0_10px_var(--color-compsigh-60)] sm:text-2xl">
             compsigh
           </span>
         </a>
@@ -36,13 +35,14 @@ export default function Home() {
         {/* Header */}
         <div className="mb-16 text-center">
           <h1
-            className={`mb-4 text-5xl font-semibold tracking-tight sm:text-6xl md:text-8xl ${ProtoMono.className}`}
-            style={{ textShadow: "0 0 20px var(--color-compsigh-60)" }}
+            className={`mb-4 text-5xl font-semibold tracking-tight [text-shadow:0_0_20px_var(--color-compsigh-60)] sm:text-6xl md:text-8xl ${ProtoMono.className}`}
           >
             <span className="animate-[fade_2s_linear_infinite]">►</span>DEPLOY/
-            <span style={{ color: "var(--color-compsigh)" }}>25</span>
+            <span className="text-[var(--color-compsigh)]">25</span>
           </h1>
-          <div className="mb-2 text-xl sm:text-2xl">University of San Francisco</div>
+          <div className="mb-2 text-xl sm:text-2xl">
+            University of San Francisco
+          </div>
           <div className="text-lg sm:text-xl">
             Friday, November 07 - Sunday, November 09
           </div>
@@ -51,15 +51,7 @@ export default function Home() {
         {/* Register */}
         <section id="register" className="mb-16">
           <div className="mx-auto max-w-4xl text-center">
-            <button
-              className="mb-4 rounded-xl px-6 py-3 text-lg font-bold sm:px-8 sm:py-4 sm:text-xl"
-              style={{
-                backgroundColor: "var(--black)",
-                color: "var(--color-light)",
-                textShadow: "0 0 10px var(--color-compsigh-60)",
-                border: "2px solid var(--color-compsigh)"
-              }}
-            >
+            <button className="mb-4 rounded-xl border-2 border-[var(--color-compsigh)] bg-[var(--black)] px-8 py-4 text-xl font-bold text-[var(--color-light)] transition-all duration-200 [text-shadow:0_0_10px_var(--color-compsigh-60)] hover:bg-[var(--color-compsigh)] hover:text-black sm:px-12 sm:py-5 sm:text-2xl">
               Register Now
             </button>
             <RegisteredCount />
@@ -73,11 +65,7 @@ export default function Home() {
               href="https://compsigh.club/"
               target="_blank"
               rel="noopener noreferrer"
-              className="font-tronica-mono"
-              style={{
-                fontFamily: "var(--font-tronica-mono)",
-                color: "var(--color-compsigh)",
-              }}
+              className="font-tronica-mono text-[var(--color-compsigh)]"
             >
               compsigh
             </a>
@@ -91,7 +79,9 @@ export default function Home() {
 
         {/* FAQ */}
         <section id="faq" className="mb-16">
-          <h2 className="mb-8 text-center text-3xl font-bold sm:text-4xl">FAQ</h2>
+          <h2 className="mb-8 text-center text-3xl font-bold sm:text-4xl">
+            FAQ
+          </h2>
           <div className="mx-auto max-w-4xl">
             <FAQAccordion />
           </div>
@@ -99,7 +89,9 @@ export default function Home() {
 
         {/* Past Events */}
         <section id="past-events" className="mb-16">
-          <h2 className="mb-8 text-center text-3xl font-bold sm:text-4xl">Past Events</h2>
+          <h2 className="mb-8 text-center text-3xl font-bold sm:text-4xl">
+            Past Events
+          </h2>
           <div className="mx-auto max-w-4xl">
             <PhotoGrid />
           </div>
@@ -112,42 +104,52 @@ export default function Home() {
           </h2>
           <div className="mx-auto max-w-4xl">
             <div className="flex justify-center">
-              <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
+              <div className="relative w-full pb-[56.25%]">
                 <iframe
                   src="https://drive.google.com/file/d/1UwGQcq1oIux9WLPIe20gmMcmJbdlH6Yi/preview"
                   allow="autoplay"
-                  className="absolute inset-0 h-full w-full rounded-lg"
-                  style={{ boxShadow: "0 0 20px var(--color-compsigh-60)" }}
+                  className="absolute inset-0 h-full w-full rounded-lg [box-shadow:0_0_20px_var(--color-compsigh-60)]"
                 ></iframe>
               </div>
             </div>
-            <p className="mt-4 text-center text-sm" style={{ color: "var(--color-light-50)" }}>
-              This video was made by <a href="https://hhkuo.org/" target="_blank" rel="noopener noreferrer" style={{ color: "var(--color-compsigh)" }}>Hendrick Kuo</a> and contains footage of our
-              most recent hackathon <a href="https://bloom.build/" target="_blank" rel="noopener noreferrer" style={{ color: "var(--color-compsigh)" }}>Bloom</a>
+            <p className="mt-4 text-center text-sm text-[var(--color-light-50)]">
+              This video was made by{" "}
+              <a
+                href="https://hhkuo.org/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[var(--color-compsigh)]"
+              >
+                Hendrick Kuo
+              </a>{" "}
+              and contains footage of our most recent hackathon{" "}
+              <a
+                href="https://bloom.build/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[var(--color-compsigh)]"
+              >
+                Bloom
+              </a>
             </p>
           </div>
         </section>
 
         {/* Footer */}
-        <footer
-          className="pb-4 pt-8 text-center"
-          style={{ color: "var(--color-dark-30)" }}
-        >
+        <footer className="pt-8 pb-4 text-center text-[var(--color-dark-30)]">
           <p className="mb-2 text-lg">Good luck, have fun!</p>
           <div className="space-y-1 text-sm">
             <p>
               <Link
                 href="https://compsigh.club/docs/about"
-                className="hover:underline"
-                style={{ color: "var(--color-compsigh)" }}
+                className="text-[var(--color-compsigh)] hover:underline"
               >
                 About compsigh
               </Link>{" "}
               •{" "}
               <Link
                 href="https://compsigh.club/docs/code-of-conduct"
-                className="hover:underline"
-                style={{ color: "var(--color-compsigh)" }}
+                className="text-[var(--color-compsigh)] hover:underline"
               >
                 Code of Conduct
               </Link>

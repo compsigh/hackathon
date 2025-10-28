@@ -15,10 +15,8 @@ const faqData: FAQItem[] = [
     id: "eligibility",
     question: "Who can participate?",
     answer: (
-      <div className="text-sm space-y-3">
-        <p>
-          USF students of all grades and majors can participate.
-        </p>
+      <div className="space-y-3 text-sm">
+        <p>USF students of all grades and majors can participate.</p>
         <p>
           You can form teams of 1–4 members. All team members must be on stage
           on presentation day to be eligible to win.
@@ -30,15 +28,18 @@ const faqData: FAQItem[] = [
     id: "presentations",
     question: "How do presentations work?",
     answer: (
-      <div className="text-sm space-y-3">
+      <div className="space-y-3 text-sm">
         <p>
-          Each team presents for 5 minutes, followed by 2 minutes of questions from judges and 2 minutes of questions from the audience.
+          Each team presents for 5 minutes, followed by 2 minutes of questions
+          from judges and 2 minutes of questions from the audience.
         </p>
         <p>
-          You can spend your presentation time however you see fit, and we highly encourage creative presentation formats!
+          You can spend your presentation time however you see fit, and we
+          highly encourage creative presentation formats!
         </p>
         <p>
-          Make sure to clearly articulate each team member&apos;s role in bringing the project to life.
+          Make sure to clearly articulate each team member&apos;s role in
+          bringing the project to life.
         </p>
       </div>
     ),
@@ -47,15 +48,16 @@ const faqData: FAQItem[] = [
     id: "winning",
     question: "How do we win?",
     answer: (
-      <div className="text-sm space-y-3">
+      <div className="space-y-3 text-sm">
         <p>
-          Teams can win People&apos;s Choice, 3rd Place, 2nd Place, or 1st Place.
+          Teams can win People&apos;s Choice, 3rd Place, 2nd Place, or 1st
+          Place.
         </p>
+        <p>People's Choice is determined by audience vote.</p>
         <p>
-          People's Choice is determined by audience vote.
-        </p>
-        <p>
-          The top 3 teams are decided by a panel of judges who score out of 10 points. Additional bonus points will be awarded based on criteria announced closer to the event date.
+          The top 3 teams are decided by a panel of judges who score out of 10
+          points. Additional bonus points will be awarded based on criteria
+          announced closer to the event date.
         </p>
       </div>
     ),
@@ -64,7 +66,7 @@ const faqData: FAQItem[] = [
     id: "prizes",
     question: "What are the prizes?",
     answer: (
-      <div className="text-sm space-y-3">
+      <div className="space-y-3 text-sm">
         <p>
           Specific prize details will be announced closer to the event date.
         </p>
@@ -75,18 +77,23 @@ const faqData: FAQItem[] = [
     id: "submissions",
     question: "What can we build?",
     answer: (
-      <div className="text-sm space-y-3">
+      <div className="space-y-3 text-sm">
         <p>
-          You can build whatever you like — there&apos;s no theme restriction! Common formats include mobile apps, desktop apps, web apps, websites, games, hardware projects, open source contributions, and more.
+          You can build whatever you like — there&apos;s no theme restriction!
+          Common formats include mobile apps, desktop apps, web apps, websites,
+          games, hardware projects, open source contributions, and more.
         </p>
         <p>
-          Important: Do not start actively building your project (brainstorming is fine) until after the Opening Keynote on Friday.
+          Important: Do not start actively building your project (brainstorming
+          is fine) until after the Opening Keynote on Friday.
         </p>
         <p>
-          Before presenting, ensure your project is open-source or otherwise publicly accessible.
+          Before presenting, ensure your project is open-source or otherwise
+          publicly accessible.
         </p>
         <p>
-          Submissions don&apos;t have to be complete. Share what worked, what didn&apos;t, and how you would continue developing the project.
+          Submissions don&apos;t have to be complete. Share what worked, what
+          didn&apos;t, and how you would continue developing the project.
         </p>
       </div>
     ),
@@ -95,18 +102,21 @@ const faqData: FAQItem[] = [
     id: "registration",
     question: "What are the important deadlines?",
     answer: (
-      <div className="text-sm space-y-3">
+      <div className="space-y-3 text-sm">
         <p>Registration deadline: November 07, 09:00pm</p>
         <p>Team formation deadline: November 07, 11:59pm</p>
         <p>Project submission deadline: November 9, 12:00pm (noon)</p>
         <p>
-          You can form teams of 1–4 people. Register as an individual and find teammates at the event, or come with a pre-formed team.
+          You can form teams of 1–4 people. Register as an individual and find
+          teammates at the event, or come with a pre-formed team.
         </p>
         <p>
-          All team members must be present for the final presentation to be eligible for prizes.
+          All team members must be present for the final presentation to be
+          eligible for prizes.
         </p>
         <p>
-          We&apos;ll have team formation activities during the opening event to help you connect with other participants!
+          We&apos;ll have team formation activities during the opening event to
+          help you connect with other participants!
         </p>
       </div>
     ),
@@ -115,9 +125,10 @@ const faqData: FAQItem[] = [
     id: "places-to-work",
     question: "Where can I work with my team?",
     answer: (
-      <div className="text-sm space-y-3">
+      <div className="space-y-3 text-sm">
         <p>
-          You can work anywhere — cafes, classrooms, conference rooms, dorms, apartments, parks, etc. Working in person is important!
+          You can work anywhere — cafes, classrooms, conference rooms, dorms,
+          apartments, parks, etc. Working in person is important!
         </p>
       </div>
     ),
@@ -126,7 +137,7 @@ const faqData: FAQItem[] = [
     id: "resources",
     question: "What resources are available?",
     answer: (
-      <div className="text-sm space-y-3">
+      <div className="space-y-3 text-sm">
         <p>
           Check out{" "}
           <a
@@ -141,10 +152,12 @@ const faqData: FAQItem[] = [
           for inspiration and best practices.
         </p>
         <p>
-          Our organizers and other teams will be available during office hours on Saturday to help with React & Next.js, design, or presentations.
+          Our organizers and other teams will be available during office hours
+          on Saturday to help with React & Next.js, design, or presentations.
         </p>
         <p>
-          Pro tip: Document your process! Not just for the presentations, but for the camera roll too. :)
+          Pro tip: Document your process! Not just for the presentations, but
+          for the camera roll too. :)
         </p>
       </div>
     ),
@@ -153,9 +166,11 @@ const faqData: FAQItem[] = [
     id: "advice",
     question: "Do you have any tips for first-time hackers?",
     answer: (
-      <div className="text-sm space-y-3">
+      <div className="space-y-3 text-sm">
         <p>
-          Whether it&apos;s your first-ever hackathon or you&apos;re a seasoned hacker, here are some pieces of advice from compsigh members to help you get the most out of the experience:
+          Whether it&apos;s your first-ever hackathon or you&apos;re a seasoned
+          hacker, here are some pieces of advice from compsigh members to help
+          you get the most out of the experience:
         </p>
         <div className="space-y-3">
           <div
@@ -176,7 +191,8 @@ const faqData: FAQItem[] = [
           >
             <p>
               <strong>Go in with a plan to learn and have fun.</strong>{" "}
-              It&apos;s a great place to network, meet new people, and explore different opportunities.
+              It&apos;s a great place to network, meet new people, and explore
+              different opportunities.
             </p>
           </div>
           <div
@@ -184,7 +200,8 @@ const faqData: FAQItem[] = [
             style={{ backgroundColor: "var(--color-light-10)" }}
           >
             <p>
-              <strong>Document your process!</strong> Not just for the presentations, but for the camera roll too. :)
+              <strong>Document your process!</strong> Not just for the
+              presentations, but for the camera roll too. :)
             </p>
           </div>
         </div>
@@ -207,7 +224,9 @@ export function FAQAccordion() {
         >
           <Accordion.Header>
             <Accordion.Trigger className="group flex w-full items-center justify-between p-4 text-left transition-all duration-200 hover:opacity-80 focus:outline-none">
-              <span className="text-lg font-semibold max-w-[480px]">{item.question}</span>
+              <span className="max-w-[480px] text-lg font-semibold">
+                {item.question}
+              </span>
               <ChevronDownIcon
                 className="h-5 w-5 transition-transform duration-200 group-data-[state=open]:rotate-180"
                 aria-hidden
@@ -215,7 +234,7 @@ export function FAQAccordion() {
             </Accordion.Trigger>
           </Accordion.Header>
           <Accordion.Content className="data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down overflow-hidden">
-            <div className="px-4 pb-4 max-w-[480px]">{item.answer}</div>
+            <div className="max-w-[480px] px-4 pb-4">{item.answer}</div>
           </Accordion.Content>
         </Accordion.Item>
       ))}
