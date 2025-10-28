@@ -1,19 +1,17 @@
 "use client";
 
-import { signIn, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 export function RegisterButton() {
   const { data: session, status } = useSession();
   const router = useRouter();
 
-  const handleClick = async () => {
+  const handleClick = () => {
     if (status === "authenticated") {
       router.push("/participant");
     } else {
-      await signIn("google", {
-        callbackUrl: "/participant",
-      });
+      router.push("/api/auth/signin");
     }
   };
 
@@ -26,4 +24,3 @@ export function RegisterButton() {
     </button>
   );
 }
-

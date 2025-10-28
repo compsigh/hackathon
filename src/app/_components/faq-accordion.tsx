@@ -66,9 +66,7 @@ const faqData: FAQItem[] = [
     id: "prizes",
     question: "What are the prizes?",
     answer: (
-      <p>
-        Specific prize details will be announced closer to the event date.
-      </p>
+      <p>Specific prize details will be announced closer to the event date.</p>
     ),
   },
   {
@@ -140,7 +138,7 @@ const faqData: FAQItem[] = [
             href="https://www.figma.com/community/file/1144013421600974167"
             target="_blank"
             rel="noopener noreferrer"
-            className="cursor-pointer text-compsigh hover:underline hover:decoration-[var(--color-compsigh)]"
+            className="text-compsigh cursor-pointer hover:underline hover:decoration-[var(--color-compsigh)]"
             style={{ color: "var(--color-compsigh)" }}
           >
             GitHub&apos;s design system for hackathons
@@ -170,15 +168,14 @@ const faqData: FAQItem[] = [
         </p>
         <p>
           <strong>
-            Don&apos;t be afraid to mess up or not have something
-            functioning
+            Don&apos;t be afraid to mess up or not have something functioning
           </strong>{" "}
           — what matters is that you take something away from it!
         </p>
         <p>
-          <strong>Go in with a plan to learn and have fun.</strong>{" "}
-          It&apos;s a great place to network, meet new people, and explore
-          different opportunities.
+          <strong>Go in with a plan to learn and have fun.</strong> It&apos;s a
+          great place to network, meet new people, and explore different
+          opportunities.
         </p>
         <p>
           <strong>Document your process!</strong> Not just for the
@@ -213,7 +210,9 @@ export function FAQAccordion() {
             </Accordion.Trigger>
           </Accordion.Header>
           <Accordion.Content className="data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down overflow-hidden">
-            <div className="max-w-[480px] px-4 pb-4 space-y-3">{item.answer}</div>
+            <div className="max-w-[480px] space-y-3 px-4 pb-4">
+              {item.answer}
+            </div>
           </Accordion.Content>
         </Accordion.Item>
       ))}

@@ -66,7 +66,7 @@ export default function Home() {
               href="https://compsigh.club/"
               target="_blank"
               rel="noopener noreferrer"
-              className="cursor-pointer font-tronica-mono text-[var(--color-compsigh)] hover:underline hover:decoration-[var(--color-compsigh)]"
+              className="font-tronica-mono cursor-pointer text-[var(--color-compsigh)] hover:underline hover:decoration-[var(--color-compsigh)]"
             >
               compsigh
             </a>

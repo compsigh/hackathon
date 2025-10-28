@@ -98,9 +98,7 @@ export default function ParticipantPage() {
         promises.push(updateName.mutateAsync({ name }));
       }
       if (graduatingClass !== originalValues.graduatingClass) {
-        promises.push(
-          updateGraduatingClass.mutateAsync({ graduatingClass }),
-        );
+        promises.push(updateGraduatingClass.mutateAsync({ graduatingClass }));
       }
 
       await Promise.all(promises);
@@ -162,7 +160,9 @@ export default function ParticipantPage() {
             height={100}
             className="h-full w-auto"
           />
-          <span className={`text-xl tracking-tight [text-shadow:0_0_10px_var(--color-compsigh-60)] sm:text-2xl ${ProtoMono.className}`}>
+          <span
+            className={`text-xl tracking-tight [text-shadow:0_0_10px_var(--color-compsigh-60)] sm:text-2xl ${ProtoMono.className}`}
+          >
             <span className="animate-[fade_2s_linear_infinite]">►</span>DEPLOY/
             <span className="text-[var(--color-compsigh)]">25</span>
           </span>
@@ -174,9 +174,7 @@ export default function ParticipantPage() {
         <div className="space-y-6">
           {/* Name Field */}
           <div>
-            <label className="mb-2 block text-sm font-medium">
-              Name
-            </label>
+            <label className="mb-2 block text-sm font-medium">Name</label>
             <input
               type="text"
               value={name}
@@ -205,14 +203,44 @@ export default function ParticipantPage() {
                 );
               }}
               className={`w-full cursor-pointer rounded-lg border border-[var(--color-light-30)] bg-[var(--color-dark)] px-4 py-2 text-[var(--color-light)] focus:border-[var(--color-compsigh)] focus:outline-none ${ProtoMono.className}`}
-              style={{ colorScheme: 'dark' }}
+              style={{ colorScheme: "dark" }}
             >
-              <option value="CO2029" className="bg-[var(--color-dark)] text-[var(--color-light)]">2029</option>
-              <option value="CO2028" className="bg-[var(--color-dark)] text-[var(--color-light)]">2028</option>
-              <option value="CO2027" className="bg-[var(--color-dark)] text-[var(--color-light)]">2027</option>
-              <option value="CO2026" className="bg-[var(--color-dark)] text-[var(--color-light)]">2026</option>
-              <option value="CO2025" className="bg-[var(--color-dark)] text-[var(--color-light)]">2025</option>
-              <option value="MASTERS" className="bg-[var(--color-dark)] text-[var(--color-light)]">Masters</option>
+              <option
+                value="CO2029"
+                className="bg-[var(--color-dark)] text-[var(--color-light)]"
+              >
+                2029
+              </option>
+              <option
+                value="CO2028"
+                className="bg-[var(--color-dark)] text-[var(--color-light)]"
+              >
+                2028
+              </option>
+              <option
+                value="CO2027"
+                className="bg-[var(--color-dark)] text-[var(--color-light)]"
+              >
+                2027
+              </option>
+              <option
+                value="CO2026"
+                className="bg-[var(--color-dark)] text-[var(--color-light)]"
+              >
+                2026
+              </option>
+              <option
+                value="CO2025"
+                className="bg-[var(--color-dark)] text-[var(--color-light)]"
+              >
+                2025
+              </option>
+              <option
+                value="MASTERS"
+                className="bg-[var(--color-dark)] text-[var(--color-light)]"
+              >
+                Masters
+              </option>
             </select>
           </div>
 
@@ -258,21 +286,44 @@ export default function ParticipantPage() {
             <button
               onClick={handleReset}
               disabled={!hasChanges}
-              className="flex-1 cursor-pointer rounded-lg border px-6 py-3 font-medium text-[var(--color-light)] disabled:cursor-not-allowed disabled:opacity-50 border-[hsla(38deg,100%,90%,0.5)] hover:bg-[hsla(38deg,100%,90%,0.5)]"
+              className="flex-1 cursor-pointer rounded-lg border border-[hsla(38deg,100%,90%,0.5)] px-6 py-3 font-medium text-[var(--color-light)] hover:bg-[hsla(38deg,100%,90%,0.5)] disabled:cursor-not-allowed disabled:opacity-50"
             >
               Reset
             </button>
             <button
               onClick={handleSave}
-              disabled={!hasChanges || updateName.isPending || updateGraduatingClass.isPending}
-              className="flex-1 cursor-pointer rounded-xl border-2 border-[var(--color-compsigh)] bg-[var(--black)] px-6 py-3 font-medium text-[var(--color-light)] disabled:cursor-not-allowed disabled:opacity-50 hover:bg-[var(--color-compsigh)] hover:text-black"
+              disabled={
+                !hasChanges ||
+                updateName.isPending ||
+                updateGraduatingClass.isPending
+              }
+              className="flex-1 cursor-pointer rounded-xl border-2 border-[var(--color-compsigh)] bg-[var(--black)] px-6 py-3 font-medium text-[var(--color-light)] hover:bg-[var(--color-compsigh)] hover:text-black disabled:cursor-not-allowed disabled:opacity-50"
             >
-              {updateName.isPending || updateGraduatingClass.isPending ? "Saving..." : "Save"}
+              {updateName.isPending || updateGraduatingClass.isPending
+                ? "Saving..."
+                : "Save"}
             </button>
+          </div>
+
+          {/* Team Registration Note */}
+          <div className="mt-8 rounded-lg border-2 border-[var(--color-compsigh)] bg-[var(--color-compsigh)]/10 p-6">
+            <p className="text-lg text-[var(--color-light)]">
+              <strong className="text-[var(--color-compsigh)]">
+                Team registration will open on November 7th at 6pm.
+              </strong>{" "}
+              Get your friends or desired teammates to register as participants!
+            </p>
+            <p className="mt-3">
+              <Link
+                href="/agenda"
+                className="text-[var(--color-compsigh)] hover:underline hover:decoration-[var(--color-compsigh)]"
+              >
+                View the agenda →
+              </Link>
+            </p>
           </div>
         </div>
       </div>
     </main>
   );
 }
-

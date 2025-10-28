@@ -50,6 +50,7 @@ export const authConfig = {
   adapter: PrismaAdapter(db),
   pages: {
     signIn: "/api/auth/signin",
+    error: "/api/auth/error",
   },
   callbacks: {
     signIn: async ({ user, account, profile }) => {

@@ -10,7 +10,7 @@ export function RegisteredCount() {
       <span className="font-bold" style={{ color: "var(--color-compsigh)" }}>
         {stats?.count ?? 0}
       </span>{" "}
-      People Registered
+      {stats?.count === 1 ? "Person Registered" : "People Registered"}
     </div>
   );
 }
