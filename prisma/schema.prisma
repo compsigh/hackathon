@@ -73,7 +73,7 @@ model User {
 
 model Team {
     id          String        @id @default(uuid())
-    name        String?
+    name        String        @unique
     createdAt   DateTime      @default(now())
     updatedAt   DateTime      @updatedAt
     
