@@ -15,20 +15,20 @@ const faqData: FAQItem[] = [
     id: "eligibility",
     question: "Who can participate?",
     answer: (
-      <div className="space-y-3 text-sm">
+      <>
         <p>USF students of all grades and majors can participate.</p>
         <p>
           You can form teams of 1–4 members. All team members must be on stage
           on presentation day to be eligible to win.
         </p>
-      </div>
+      </>
     ),
   },
   {
     id: "presentations",
     question: "How do presentations work?",
     answer: (
-      <div className="space-y-3 text-sm">
+      <>
         <p>
           Each team presents for 5 minutes, followed by 2 minutes of questions
           from judges and 2 minutes of questions from the audience.
@@ -41,14 +41,14 @@ const faqData: FAQItem[] = [
           Make sure to clearly articulate each team member&apos;s role in
           bringing the project to life.
         </p>
-      </div>
+      </>
     ),
   },
   {
     id: "winning",
     question: "How do we win?",
     answer: (
-      <div className="space-y-3 text-sm">
+      <>
         <p>
           Teams can win People&apos;s Choice, 3rd Place, 2nd Place, or 1st
           Place.
@@ -59,25 +59,23 @@ const faqData: FAQItem[] = [
           points. Additional bonus points will be awarded based on criteria
           announced closer to the event date.
         </p>
-      </div>
+      </>
     ),
   },
   {
     id: "prizes",
     question: "What are the prizes?",
     answer: (
-      <div className="space-y-3 text-sm">
-        <p>
-          Specific prize details will be announced closer to the event date.
-        </p>
-      </div>
+      <p>
+        Specific prize details will be announced closer to the event date.
+      </p>
     ),
   },
   {
     id: "submissions",
     question: "What can we build?",
     answer: (
-      <div className="space-y-3 text-sm">
+      <>
         <p>
           You can build whatever you like — there&apos;s no theme restriction!
           Common formats include mobile apps, desktop apps, web apps, websites,
@@ -95,14 +93,14 @@ const faqData: FAQItem[] = [
           Submissions don&apos;t have to be complete. Share what worked, what
           didn&apos;t, and how you would continue developing the project.
         </p>
-      </div>
+      </>
     ),
   },
   {
     id: "registration",
     question: "What are the important deadlines?",
     answer: (
-      <div className="space-y-3 text-sm">
+      <>
         <p>Registration deadline: November 07, 09:00pm</p>
         <p>Team formation deadline: November 07, 11:59pm</p>
         <p>Project submission deadline: November 9, 12:00pm (noon)</p>
@@ -118,33 +116,31 @@ const faqData: FAQItem[] = [
           We&apos;ll have team formation activities during the opening event to
           help you connect with other participants!
         </p>
-      </div>
+      </>
     ),
   },
   {
     id: "places-to-work",
     question: "Where can I work with my team?",
     answer: (
-      <div className="space-y-3 text-sm">
-        <p>
-          You can work anywhere — cafes, classrooms, conference rooms, dorms,
-          apartments, parks, etc. Working in person is important!
-        </p>
-      </div>
+      <p>
+        You can work anywhere — cafes, classrooms, conference rooms, dorms,
+        apartments, parks, etc. Working in person is important!
+      </p>
     ),
   },
   {
     id: "resources",
     question: "What resources are available?",
     answer: (
-      <div className="space-y-3 text-sm">
+      <>
         <p>
           Check out{" "}
           <a
             href="https://www.figma.com/community/file/1144013421600974167"
             target="_blank"
             rel="noopener noreferrer"
-            className="cursor-pointer text-compsigh transition-all hover:underline hover:decoration-[var(--color-compsigh)]"
+            className="cursor-pointer text-compsigh hover:underline hover:decoration-[var(--color-compsigh)]"
             style={{ color: "var(--color-compsigh)" }}
           >
             GitHub&apos;s design system for hackathons
@@ -159,53 +155,36 @@ const faqData: FAQItem[] = [
           Pro tip: Document your process! Not just for the presentations, but
           for the camera roll too. :)
         </p>
-      </div>
+      </>
     ),
   },
   {
     id: "advice",
     question: "Do you have any tips for first-time hackers?",
     answer: (
-      <div className="space-y-3 text-sm">
+      <>
         <p>
           Whether it&apos;s your first-ever hackathon or you&apos;re a seasoned
           hacker, here are some pieces of advice from compsigh members to help
           you get the most out of the experience:
         </p>
-        <div className="space-y-3">
-          <div
-            className="rounded-lg p-4"
-            style={{ backgroundColor: "var(--color-light-10)" }}
-          >
-            <p>
-              <strong>
-                Don&apos;t be afraid to mess up or not have something
-                functioning
-              </strong>{" "}
-              — what matters is that you take something away from it!
-            </p>
-          </div>
-          <div
-            className="rounded-lg p-4"
-            style={{ backgroundColor: "var(--color-light-10)" }}
-          >
-            <p>
-              <strong>Go in with a plan to learn and have fun.</strong>{" "}
-              It&apos;s a great place to network, meet new people, and explore
-              different opportunities.
-            </p>
-          </div>
-          <div
-            className="rounded-lg p-4"
-            style={{ backgroundColor: "var(--color-light-10)" }}
-          >
-            <p>
-              <strong>Document your process!</strong> Not just for the
-              presentations, but for the camera roll too. :)
-            </p>
-          </div>
-        </div>
-      </div>
+        <p>
+          <strong>
+            Don&apos;t be afraid to mess up or not have something
+            functioning
+          </strong>{" "}
+          — what matters is that you take something away from it!
+        </p>
+        <p>
+          <strong>Go in with a plan to learn and have fun.</strong>{" "}
+          It&apos;s a great place to network, meet new people, and explore
+          different opportunities.
+        </p>
+        <p>
+          <strong>Document your process!</strong> Not just for the
+          presentations, but for the camera roll too. :)
+        </p>
+      </>
     ),
   },
 ];
@@ -223,18 +202,18 @@ export function FAQAccordion() {
           style={{ borderColor: "var(--color-light-30)" }}
         >
           <Accordion.Header>
-            <Accordion.Trigger className="group flex w-full cursor-pointer items-center justify-between p-4 text-left transition-all duration-200 hover:opacity-80 focus:outline-none">
+            <Accordion.Trigger className="group flex w-full cursor-pointer items-center justify-between p-4 text-left hover:opacity-80 focus:outline-none">
               <span className="max-w-[480px] text-lg font-semibold">
                 {item.question}
               </span>
               <ChevronDownIcon
-                className="h-5 w-5 transition-transform duration-200 group-data-[state=open]:rotate-180"
+                className="h-5 w-5 group-data-[state=open]:rotate-180"
                 aria-hidden
               />
             </Accordion.Trigger>
           </Accordion.Header>
           <Accordion.Content className="data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down overflow-hidden">
-            <div className="max-w-[480px] px-4 pb-4">{item.answer}</div>
+            <div className="max-w-[480px] px-4 pb-4 space-y-3">{item.answer}</div>
           </Accordion.Content>
         </Accordion.Item>
       ))}

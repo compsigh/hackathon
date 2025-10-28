@@ -11,15 +11,15 @@ import { RegisterButton } from "./_components/register-button";
 
 export default function Home() {
   return (
-    <main className="min-h-screen">
+    <main className="relative min-h-screen">
       <Navbar />
       {/* Logo/Brand */}
-      <div className="fixed top-0 left-0 z-10 p-4">
+      <div className="absolute top-0 left-0 z-10 p-4">
         <a
           href="https://compsigh.club/"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex h-10 cursor-pointer items-center space-x-3 transition-all hover:underline hover:decoration-[var(--color-compsigh)]"
+          className="flex h-10 cursor-pointer items-center space-x-3 hover:underline hover:decoration-[var(--color-compsigh)]"
         >
           <Image
             src="/compsigh-logo-glowing.png"
@@ -66,7 +66,7 @@ export default function Home() {
               href="https://compsigh.club/"
               target="_blank"
               rel="noopener noreferrer"
-              className="cursor-pointer font-tronica-mono text-[var(--color-compsigh)] transition-all hover:underline hover:decoration-[var(--color-compsigh)]"
+              className="cursor-pointer font-tronica-mono text-[var(--color-compsigh)] hover:underline hover:decoration-[var(--color-compsigh)]"
             >
               compsigh
             </a>
@@ -119,7 +119,7 @@ export default function Home() {
                 href="https://hhkuo.org/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="cursor-pointer text-[var(--color-compsigh)] transition-all hover:underline hover:decoration-[var(--color-compsigh)]"
+                className="cursor-pointer text-[var(--color-compsigh)] hover:underline hover:decoration-[var(--color-compsigh)]"
               >
                 Hendrick Kuo
               </a>{" "}
@@ -128,7 +128,7 @@ export default function Home() {
                 href="https://bloom.build/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="cursor-pointer text-[var(--color-compsigh)] transition-all hover:underline hover:decoration-[var(--color-compsigh)]"
+                className="cursor-pointer text-[var(--color-compsigh)] hover:underline hover:decoration-[var(--color-compsigh)]"
               >
                 Bloom
               </a>
@@ -143,14 +143,14 @@ export default function Home() {
             <p>
               <Link
                 href="https://compsigh.club/docs/about"
-                className="cursor-pointer text-[var(--color-compsigh)] transition-all hover:underline hover:decoration-[var(--color-compsigh)]"
+                className="cursor-pointer text-[var(--color-compsigh)] hover:underline hover:decoration-[var(--color-compsigh)]"
               >
                 About compsigh
               </Link>{" "}
               •{" "}
               <Link
                 href="https://compsigh.club/docs/code-of-conduct"
-                className="cursor-pointer text-[var(--color-compsigh)] transition-all hover:underline hover:decoration-[var(--color-compsigh)]"
+                className="cursor-pointer text-[var(--color-compsigh)] hover:underline hover:decoration-[var(--color-compsigh)]"
               >
                 Code of Conduct
               </Link>

@@ -147,13 +147,13 @@ export default function ParticipantPage() {
   }
 
   return (
-    <main className="min-h-screen">
+    <main className="relative min-h-screen">
       <Navbar />
       {/* Logo/Brand */}
-      <div className="fixed top-0 left-0 z-10 p-4">
+      <div className="absolute top-0 left-0 z-10 p-4">
         <Link
           href="/"
-          className="flex h-10 cursor-pointer items-center space-x-3 transition-all hover:underline hover:decoration-[var(--color-compsigh)]"
+          className="flex h-10 cursor-pointer items-center space-x-3 hover:underline"
         >
           <Image
             src="/compsigh-logo-glowing.png"
@@ -168,7 +168,7 @@ export default function ParticipantPage() {
           </span>
         </Link>
       </div>
-      <div className="container mx-auto max-w-2xl px-4 pt-20 pb-8">
+      <div className="container mx-auto max-w-2xl px-4 pt-28 pb-8 sm:pt-20">
         <h1 className="mb-8 text-4xl font-bold">Participant Dashboard</h1>
 
         <div className="space-y-6">
@@ -181,7 +181,7 @@ export default function ParticipantPage() {
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full rounded-lg border border-gray-600 bg-gray-800 px-4 py-2 text-white focus:border-[var(--color-compsigh)] focus:outline-none"
+              className={`w-full rounded-lg border border-[var(--color-light-30)] bg-[var(--color-dark)] px-4 py-2 text-[var(--color-light)] focus:border-[var(--color-compsigh)] focus:outline-none ${ProtoMono.className}`}
               placeholder="Enter your name"
             />
           </div>
@@ -204,14 +204,15 @@ export default function ParticipantPage() {
                     | "MASTERS",
                 );
               }}
-              className="w-full cursor-pointer rounded-lg border border-gray-600 bg-gray-800 px-4 py-2 text-white focus:border-[var(--color-compsigh)] focus:outline-none"
+              className={`w-full cursor-pointer rounded-lg border border-[var(--color-light-30)] bg-[var(--color-dark)] px-4 py-2 text-[var(--color-light)] focus:border-[var(--color-compsigh)] focus:outline-none ${ProtoMono.className}`}
+              style={{ colorScheme: 'dark' }}
             >
-              <option value="CO2029">CO2029</option>
-              <option value="CO2028">CO2028</option>
-              <option value="CO2027">CO2027</option>
-              <option value="CO2026">CO2026</option>
-              <option value="CO2025">CO2025</option>
-              <option value="MASTERS">Masters</option>
+              <option value="CO2029" className="bg-[var(--color-dark)] text-[var(--color-light)]">2029</option>
+              <option value="CO2028" className="bg-[var(--color-dark)] text-[var(--color-light)]">2028</option>
+              <option value="CO2027" className="bg-[var(--color-dark)] text-[var(--color-light)]">2027</option>
+              <option value="CO2026" className="bg-[var(--color-dark)] text-[var(--color-light)]">2026</option>
+              <option value="CO2025" className="bg-[var(--color-dark)] text-[var(--color-light)]">2025</option>
+              <option value="MASTERS" className="bg-[var(--color-dark)] text-[var(--color-light)]">Masters</option>
             </select>
           </div>
 
@@ -222,7 +223,7 @@ export default function ParticipantPage() {
               type="email"
               value={user.email ?? ""}
               disabled
-              className="w-full cursor-not-allowed rounded-lg border border-gray-600 bg-gray-900 px-4 py-2 text-gray-400"
+              className={`w-full cursor-not-allowed rounded-lg border border-[var(--color-light-30)] bg-[var(--color-dark)] px-4 py-2 text-[var(--color-light-50)] ${ProtoMono.className}`}
             />
           </div>
 
@@ -257,14 +258,14 @@ export default function ParticipantPage() {
             <button
               onClick={handleReset}
               disabled={!hasChanges}
-              className="flex-1 cursor-pointer rounded-lg border border-gray-600 bg-gray-800 px-6 py-3 font-medium text-white transition-colors disabled:cursor-not-allowed disabled:opacity-50 hover:bg-gray-700"
+              className="flex-1 cursor-pointer rounded-lg border px-6 py-3 font-medium text-[var(--color-light)] disabled:cursor-not-allowed disabled:opacity-50 border-[hsla(38deg,100%,90%,0.5)] hover:bg-[hsla(38deg,100%,90%,0.5)]"
             >
               Reset
             </button>
             <button
               onClick={handleSave}
               disabled={!hasChanges || updateName.isPending || updateGraduatingClass.isPending}
-              className="flex-1 cursor-pointer rounded-xl border-2 border-[var(--color-compsigh)] bg-[var(--black)] px-6 py-3 font-medium text-[var(--color-light)] transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-50 hover:bg-[var(--color-compsigh)] hover:text-black"
+              className="flex-1 cursor-pointer rounded-xl border-2 border-[var(--color-compsigh)] bg-[var(--black)] px-6 py-3 font-medium text-[var(--color-light)] disabled:cursor-not-allowed disabled:opacity-50 hover:bg-[var(--color-compsigh)] hover:text-black"
             >
               {updateName.isPending || updateGraduatingClass.isPending ? "Saving..." : "Save"}
             </button>
