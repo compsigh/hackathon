@@ -72,7 +72,7 @@ const faqData: FAQItem[] = [
           Teams can win People&apos;s Choice, 3rd Place, 2nd Place, or 1st
           Place.
         </p>
-        <p>People's Choice is determined by audience vote.</p>
+        <p>People&apos;s Choice is determined by audience vote.</p>
         <p>
           The top 3 teams are decided by a panel of judges who score out of 10
           points. Additional bonus points will be awarded based on criteria

@@ -10,7 +10,7 @@ import { Navbar } from "../_components/navbar";
 import { ProtoMono } from "../fonts";
 
 export default function ParticipantPage() {
-  const { data: session, status } = useSession();
+  const { status } = useSession();
   const router = useRouter();
   const utils = api.useUtils();
 
@@ -74,9 +74,12 @@ export default function ParticipantPage() {
           | "CO2025"
           | "MASTERS",
       };
-      setOriginalValues(newOriginalValues);
-      setName(newOriginalValues.name);
-      setGraduatingClass(newOriginalValues.graduatingClass);
+      // Use setTimeout to avoid calling setState synchronously within an effect
+      setTimeout(() => {
+        setOriginalValues(newOriginalValues);
+        setName(newOriginalValues.name);
+        setGraduatingClass(newOriginalValues.graduatingClass);
+      }, 0);
     }
   }, [user]);
 

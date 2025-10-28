@@ -53,7 +53,7 @@ export const authConfig = {
     error: "/api/auth/error",
   },
   callbacks: {
-    signIn: async ({ user, account, profile }) => {
+    signIn: async ({ user }) => {
       // Only allow usfca.edu emails
       if (user.email && !user.email.endsWith("usfca.edu")) {
         return false;

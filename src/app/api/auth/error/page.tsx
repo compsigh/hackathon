@@ -1,13 +1,10 @@
 "use client";
 
 import { Suspense } from "react";
-import { useSearchParams } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { AuthLayout } from "../_components/auth-layout";
 
 function ErrorContent() {
-  const searchParams = useSearchParams();
-  const error = searchParams.get("error");
 
   const handleSignIn = () => {
     void signIn("google", {
