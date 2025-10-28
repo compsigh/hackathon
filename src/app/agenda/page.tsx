@@ -39,9 +39,20 @@ export default function AgendaPage() {
         <div className="space-y-8">
           {/* Day 1 */}
           <div className="rounded-lg border-2 border-[var(--color-compsigh)] bg-[var(--color-compsigh)]/10 p-6">
-            <h2 className="mb-4 text-2xl font-bold text-[var(--color-compsigh)]">
+            <h2 className="mb-2 text-2xl font-bold text-[var(--color-compsigh)]">
               Friday, November 7
             </h2>
+            <p className="mb-4 text-sm text-[var(--color-light-50)]">
+              Location:{" "}
+              <a
+                href="https://maps.app.goo.gl/LkMH8oKg763BCfg2A"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[var(--color-compsigh)] hover:underline hover:decoration-[var(--color-compsigh)]"
+              >
+                Fromm Hall - 115 - Berman Conference Room
+              </a>
+            </p>
             <div className="space-y-3 text-lg">
               <div className="flex gap-4">
                 <span className="font-bold text-[var(--color-compsigh)]">
@@ -61,71 +72,63 @@ export default function AgendaPage() {
                 </span>
                 <span>Hacking Begins!</span>
               </div>
-              <div className="flex gap-4">
-                <span className="font-bold text-[var(--color-compsigh)]">
-                  10:00 PM
-                </span>
-                <span>Workshop Session</span>
+              <div className="mt-4 border-t border-[var(--color-light-30)] pt-4 text-[var(--color-light-50)]">
+                More events / meals announced soon
               </div>
             </div>
           </div>
 
           {/* Day 2 */}
           <div className="rounded-lg border-2 border-[var(--color-compsigh)] bg-[var(--color-compsigh)]/10 p-6">
-            <h2 className="mb-4 text-2xl font-bold text-[var(--color-compsigh)]">
+            <h2 className="mb-2 text-2xl font-bold text-[var(--color-compsigh)]">
               Saturday, November 8
             </h2>
+            <p className="mb-4 text-sm text-[var(--color-light-50)]">
+              Location:{" "}
+              <a
+                href="https://maps.app.goo.gl/2ZBP7sTMwhJiV7wQ9"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[var(--color-compsigh)] hover:underline hover:decoration-[var(--color-compsigh)]"
+              >
+                Social Hive (Harney First Floor)
+              </a>
+            </p>
             <div className="space-y-3 text-lg">
-              <div className="flex gap-4">
-                <span className="font-bold text-[var(--color-compsigh)]">
-                  9:00 AM
-                </span>
-                <span>Breakfast</span>
-              </div>
-              <div className="flex gap-4">
-                <span className="font-bold text-[var(--color-compsigh)]">
-                  12:00 PM
-                </span>
-                <span>Lunch</span>
-              </div>
-              <div className="flex gap-4">
-                <span className="font-bold text-[var(--color-compsigh)]">
-                  2:00 PM
-                </span>
-                <span>Workshop Session</span>
-              </div>
-              <div className="flex gap-4">
-                <span className="font-bold text-[var(--color-compsigh)]">
-                  6:00 PM
-                </span>
-                <span>Dinner</span>
-              </div>
-              <div className="flex gap-4">
-                <span className="font-bold text-[var(--color-compsigh)]">
-                  8:00 PM
-                </span>
-                <span>Mini Events & Activities</span>
+              <div className="text-[var(--color-light-50)]">
+                More events / meals announced soon
               </div>
             </div>
           </div>
 
           {/* Day 3 */}
           <div className="rounded-lg border-2 border-[var(--color-compsigh)] bg-[var(--color-compsigh)]/10 p-6">
-            <h2 className="mb-4 text-2xl font-bold text-[var(--color-compsigh)]">
+            <h2 className="mb-2 text-2xl font-bold text-[var(--color-compsigh)]">
               Sunday, November 9
             </h2>
+            <p className="mb-4 text-sm text-[var(--color-light-50)]">
+              Location:{" "}
+              <a
+                href="https://maps.app.goo.gl/2ZBP7sTMwhJiV7wQ9"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[var(--color-compsigh)] hover:underline hover:decoration-[var(--color-compsigh)]"
+              >
+                Social Hive (Harney First Floor)
+              </a>
+            </p>
             <div className="space-y-3 text-lg">
-              <div className="flex gap-4">
-                <span className="font-bold text-[var(--color-compsigh)]">
-                  9:00 AM
-                </span>
-                <span>Breakfast</span>
-              </div>
               <div className="flex gap-4">
                 <span className="font-bold text-[var(--color-compsigh)]">
                   12:00 PM
                 </span>
                 <span>Project Submissions Close</span>
+              </div>
+              <div className="flex gap-4">
+                <span className="font-bold text-[var(--color-compsigh)]">
+                  12:00 PM
+                </span>
+                <span>Lunch</span>
               </div>
               <div className="flex gap-4">
                 <span className="font-bold text-[var(--color-compsigh)]">
@@ -139,18 +142,10 @@ export default function AgendaPage() {
                 </span>
                 <span>Closing Ceremony & Awards</span>
               </div>
+              <div className="mt-4 border-t border-[var(--color-light-30)] pt-4 text-[var(--color-light-50)]">
+                More events / meals announced soon
+              </div>
             </div>
-          </div>
-
-          {/* Additional Info */}
-          <div className="mt-8 rounded-lg border-2 border-[var(--color-light-30)] bg-[var(--color-light-10)] p-6">
-            <h3 className="mb-3 text-xl font-bold text-[var(--color-light)]">
-              More Information
-            </h3>
-            <p className="text-[var(--color-light-50)]">
-              A detailed schedule with workshop topics and special events will
-              be announced closer to the event date. Stay tuned for updates!
-            </p>
           </div>
         </div>
       </div>
