@@ -48,7 +48,17 @@ export const authConfig = {
      */
   ],
   adapter: PrismaAdapter(db),
+  pages: {
+    signIn: "/api/auth/signin",
+  },
   callbacks: {
+    signIn: async ({ user, account, profile }) => {
+      // Only allow usfca.edu emails
+      if (user.email && !user.email.endsWith("usfca.edu")) {
+        return false;
+      }
+      return true;
+    },
     session: ({ session, user }) => ({
       ...session,
       user: {

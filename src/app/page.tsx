@@ -4,19 +4,22 @@ import Link from "next/link";
 import Image from "next/image";
 import { ProtoMono } from "./fonts";
 import { FAQAccordion } from "./_components/faq-accordion";
+import { Navbar } from "./_components/navbar";
 import { PhotoGrid } from "./_components/photo-grid";
 import { RegisteredCount } from "./_components/registered-count";
+import { RegisterButton } from "./_components/register-button";
 
 export default function Home() {
   return (
     <main className="min-h-screen">
+      <Navbar />
       {/* Logo/Brand */}
       <div className="fixed top-0 left-0 z-10 p-4">
         <a
           href="https://compsigh.club/"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex h-10 items-center space-x-3"
+          className="flex h-10 cursor-pointer items-center space-x-3 transition-all hover:underline hover:decoration-[var(--color-compsigh)]"
         >
           <Image
             src="/compsigh-logo-glowing.png"
@@ -51,9 +54,7 @@ export default function Home() {
         {/* Register */}
         <section id="register" className="mb-16">
           <div className="mx-auto max-w-4xl text-center">
-            <button className="mb-4 rounded-xl border-2 border-[var(--color-compsigh)] bg-[var(--black)] px-8 py-4 text-xl font-bold text-[var(--color-light)] transition-all duration-200 [text-shadow:0_0_10px_var(--color-compsigh-60)] hover:bg-[var(--color-compsigh)] hover:text-black sm:px-12 sm:py-5 sm:text-2xl">
-              Register Now
-            </button>
+            <RegisterButton />
             <RegisteredCount />
           </div>
         </section>
@@ -65,7 +66,7 @@ export default function Home() {
               href="https://compsigh.club/"
               target="_blank"
               rel="noopener noreferrer"
-              className="font-tronica-mono text-[var(--color-compsigh)]"
+              className="cursor-pointer font-tronica-mono text-[var(--color-compsigh)] transition-all hover:underline hover:decoration-[var(--color-compsigh)]"
             >
               compsigh
             </a>
@@ -118,7 +119,7 @@ export default function Home() {
                 href="https://hhkuo.org/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[var(--color-compsigh)]"
+                className="cursor-pointer text-[var(--color-compsigh)] transition-all hover:underline hover:decoration-[var(--color-compsigh)]"
               >
                 Hendrick Kuo
               </a>{" "}
@@ -127,7 +128,7 @@ export default function Home() {
                 href="https://bloom.build/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[var(--color-compsigh)]"
+                className="cursor-pointer text-[var(--color-compsigh)] transition-all hover:underline hover:decoration-[var(--color-compsigh)]"
               >
                 Bloom
               </a>
@@ -142,14 +143,14 @@ export default function Home() {
             <p>
               <Link
                 href="https://compsigh.club/docs/about"
-                className="text-[var(--color-compsigh)] hover:underline"
+                className="cursor-pointer text-[var(--color-compsigh)] transition-all hover:underline hover:decoration-[var(--color-compsigh)]"
               >
                 About compsigh
               </Link>{" "}
               •{" "}
               <Link
                 href="https://compsigh.club/docs/code-of-conduct"
-                className="text-[var(--color-compsigh)] hover:underline"
+                className="cursor-pointer text-[var(--color-compsigh)] transition-all hover:underline hover:decoration-[var(--color-compsigh)]"
               >
                 Code of Conduct
               </Link>

@@ -144,7 +144,7 @@ const faqData: FAQItem[] = [
             href="https://www.figma.com/community/file/1144013421600974167"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-compsigh"
+            className="cursor-pointer text-compsigh transition-all hover:underline hover:decoration-[var(--color-compsigh)]"
             style={{ color: "var(--color-compsigh)" }}
           >
             GitHub&apos;s design system for hackathons
@@ -223,7 +223,7 @@ export function FAQAccordion() {
           style={{ borderColor: "var(--color-light-30)" }}
         >
           <Accordion.Header>
-            <Accordion.Trigger className="group flex w-full items-center justify-between p-4 text-left transition-all duration-200 hover:opacity-80 focus:outline-none">
+            <Accordion.Trigger className="group flex w-full cursor-pointer items-center justify-between p-4 text-left transition-all duration-200 hover:opacity-80 focus:outline-none">
               <span className="max-w-[480px] text-lg font-semibold">
                 {item.question}
               </span>

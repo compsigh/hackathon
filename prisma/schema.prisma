@@ -18,7 +18,6 @@ datasource db {
 enum UserRole {
     ADMIN
     PARTICIPANT
-    JUDGE
 }
 
 enum GraduatingClass {

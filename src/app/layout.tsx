@@ -5,6 +5,7 @@ import localFont from "next/font/local";
 
 import { TRPCReactProvider } from "~/trpc/react";
 import { ProtoMono } from "./fonts";
+import { SessionProvider } from "./session-provider";
 
 const metadataBase = new URL("https://deploy25.com");
 
@@ -56,7 +57,9 @@ export default function RootLayout({
       className={`${ProtoMono.variable} ${iAWriterQuattro.variable} ${TronicaMono.variable}`}
     >
       <body>
-        <TRPCReactProvider>{children}</TRPCReactProvider>
+        <SessionProvider>
+          <TRPCReactProvider>{children}</TRPCReactProvider>
+        </SessionProvider>
       </body>
     </html>
   );
