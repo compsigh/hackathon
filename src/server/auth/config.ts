@@ -14,8 +14,7 @@ declare module "next-auth" {
   interface Session extends DefaultSession {
     user: {
       id: string;
-      // ...other properties
-      // role: UserRole;
+      isAdmin: boolean;
     } & DefaultSession["user"];
   }
 
@@ -60,12 +59,24 @@ export const authConfig = {
       }
       return true;
     },
-    session: ({ session, user }) => ({
-      ...session,
-      user: {
-        ...session.user,
-        id: user.id,
-      },
-    }),
+    session: async ({ session, user }) => {
+      // Check if user's email is in the AdminEmail table
+      let isAdmin = false;
+      if (session.user.email) {
+        const adminEmail = await db.adminEmail.findUnique({
+          where: { email: session.user.email },
+        });
+        isAdmin = adminEmail !== null;
+      }
+
+      return {
+        ...session,
+        user: {
+          ...session.user,
+          id: user.id,
+          isAdmin,
+        },
+      };
+    },
   },
 } satisfies NextAuthConfig;

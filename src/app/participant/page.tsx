@@ -10,9 +10,16 @@ import { Navbar } from "../_components/navbar";
 import { ProtoMono } from "../fonts";
 
 export default function ParticipantPage() {
-  const { status } = useSession();
+  const { data: session, status } = useSession();
   const router = useRouter();
   const utils = api.useUtils();
+
+  // Redirect unauthenticated users
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.push("/");
+    }
+  }, [status, router]);
 
   const { data: user, isLoading } = api.participant.getCurrentUser.useQuery(
     undefined,
@@ -135,7 +142,6 @@ export default function ParticipantPage() {
   }
 
   if (status === "unauthenticated") {
-    router.push("/");
     return null;
   }
 
@@ -173,6 +179,24 @@ export default function ParticipantPage() {
       </div>
       <div className="container mx-auto max-w-2xl px-4 pt-28 pb-8 sm:pt-20">
         <h1 className="mb-8 text-4xl font-bold">Participant Dashboard</h1>
+
+          {/* Admin Notice */}
+          {session?.user?.isAdmin && (
+            <div className="m-6 rounded-lg border-2 border-[var(--color-compsigh)] p-4">
+                <p className="text-sm text-[var(--color-light)]">
+                  <strong className="text-[var(--color-compsigh)]">
+                    Admin Access:
+                  </strong>{" "}
+                  You have admin privileges.{" "}
+                  <Link
+                    href="/admin"
+                    className="font-medium text-[var(--color-compsigh)] hover:underline hover:decoration-[var(--color-compsigh)]"
+                  >
+                    Access admin panel →
+                  </Link>
+                </p>
+              </div>
+          )}
 
         <div className="space-y-6">
           {/* Name Field */}
@@ -325,6 +349,7 @@ export default function ParticipantPage() {
               </Link>
             </p>
           </div>
+
         </div>
       </div>
     </main>

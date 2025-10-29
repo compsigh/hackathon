@@ -15,11 +15,6 @@ datasource db {
 }
 
 // ===== ENUMS =====
-enum UserRole {
-    ADMIN
-    PARTICIPANT
-}
-
 enum GraduatingClass {
     CO2029
     CO2028
@@ -55,9 +50,8 @@ model User {
     email         String?   @unique
     emailVerified DateTime?
     image         String?
-    role          UserRole  @default(PARTICIPANT)
     
-    // Participant-specific fields (only relevant when role = PARTICIPANT)
+    // Participant-specific fields
     graduatingClass GraduatingClass?
     attended        Boolean          @default(false)
     teamId          String?
@@ -68,6 +62,12 @@ model User {
     team          Team?              @relation(fields: [teamId], references: [id])
     sentInvites   Invite[]          @relation("InviteSender")
     receivedInvites Invite[]        @relation("InviteReceiver")
+}
+
+model AdminEmail {
+    email String @id @unique
+    
+    @@map("admin_emails")
 }
 
 model Team {
