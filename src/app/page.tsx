@@ -130,7 +130,7 @@ export default function Home() {
                 rel="noopener noreferrer"
                 className="cursor-pointer text-[var(--color-compsigh)] hover:underline hover:decoration-[var(--color-compsigh)]"
               >
-                Bloom
+                BLOOM
               </a>
             </p>
           </div>
