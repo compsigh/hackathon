@@ -1,29 +1,72 @@
-# Create T3 App
+# compsigh Hackathon Platform 
+![Static Badge](https://img.shields.io/badge/compsigh-black?logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB3aWR0aD0iMTAyNCIgaGVpZ2h0PSIxMDI0IiB2aWV3Qm94PSIwIDAgMTAyNCAxMDI0IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8Y2lyY2xlIGN4PSI1MTIiIGN5PSI1MTIiIHI9IjM3NSIgc3Ryb2tlPSIjRkRCQjMwIiBzdHJva2Utd2lkdGg9IjUwIi8%2BCjxyZWN0IHg9IjI5NCIgeT0iNjk0LjIxOCIgd2lkdGg9IjQ1MCIgaGVpZ2h0PSI1MCIgcng9IjI1IiB0cmFuc2Zvcm09InJvdGF0ZSgtNjAgMjk0IDY5NC4yMTgpIiBmaWxsPSIjRkRCQjMwIi8%2BCjxyZWN0IHg9IjQ2MS4zMDEiIHk9IjY5My43MTEiIHdpZHRoPSI0NTAiIGhlaWdodD0iNTAiIHJ4PSIyNSIgdHJhbnNmb3JtPSJyb3RhdGUoLTYwIDQ2MS4zMDEgNjkzLjcxMSkiIGZpbGw9IiNGREJCMzAiLz4KPC9zdmc%2BCg%3D%3D&link=https%3A%2F%2Fcompsigh.club%2F)
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+Hackathon registration and management platform for compsigh hackathons.
 
-## What's next? How do I make an app with this?
+## Tech Stack
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+Based on the [T3 stack](https://create.t3.gg/)
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+- **Next.js 15** - React framework
+- **tRPC** - End-to-end typesafe APIs
+- **Prisma** - Database ORM
+- **NextAuth.js** - Authentication (Google OAuth)
+- **PostgreSQL** - Database
+- **Tailwind CSS** - Styling
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Drizzle](https://orm.drizzle.team)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+## Features
 
-## Learn More
+- Participant registration and profile management
+- Admin dashboard to view participants
+- Event agenda and FAQ
+- Photo gallery
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+## Getting Started
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+You can use Nix or direnv to automatically set up the development environment:
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+- **Nix**: Run `nix develop` to enter the development shell
+- **direnv**: If you have direnv installed, it will automatically load the environment when you `cd` into the project
 
-## How do I deploy this?
+1. Install dependencies:
+   ```bash
+   bun install
+   ```
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+2. Set up environment variables (create `.env`):
+   ```env
+   DATABASE_URL="postgresql://postgres:postgres@localhost:5432/hackathon"
+   GOOGLE_CLIENT_ID="your-google-client-id" # 
+   GOOGLE_CLIENT_SECRET="your-google-client-secret"
+   AUTH_SECRET="your-auth-secret"
+   ```
+   > For the AUTH_SECRET use `bunx auth secret`
+
+   > For the GOOGLE_CLIENT env vars, use bunx vercel env pull --environment development if you are a part of this project, or go to google cloud and make your own.
+
+3. Start the database:
+   ```bash
+   ./start-database.sh
+   ```
+
+4. Run database migrations:
+   ```bash
+   bun db:push
+   ```
+
+5. Start the development server:
+   ```bash
+   bun dev
+   ```
+
+## Scripts
+
+- `bun dev` - Start development server
+- `bun build` - Build for production
+- `bun db:studio` - Open Prisma Studio
+- `bun db:push` - Push schema changes to database
+- `bun check` - Run ESLint and TypeScript type checking
+- `bun format:check` - Check formatting
+- `bun format:write` - Write formatted code
+- `bun preview` - Preview production build
+- `bun start` - Start production server
