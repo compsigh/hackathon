@@ -7,7 +7,7 @@ import { TRPCReactProvider } from "~/trpc/react";
 import { ProtoMono } from "./fonts";
 import { SessionProvider } from "./session-provider";
 
-const metadataBase = new URL("https://deploy25.com");
+const metadataBase = new URL("https://deploy.compsigh.club");
 
 export const metadata: Metadata = {
   metadataBase,
