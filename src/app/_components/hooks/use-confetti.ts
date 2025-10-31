@@ -1,4 +1,3 @@
-import { useRef } from "react";
 import confetti from "canvas-confetti";
 
 export function useConfetti() {
@@ -51,4 +50,3 @@ export function useConfetti() {
     triggerFirstVisitConfetti,
   };
 }
-

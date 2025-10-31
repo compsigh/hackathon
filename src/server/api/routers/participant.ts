@@ -1,9 +1,6 @@
 import { z } from "zod";
 
-import {
-  createTRPCRouter,
-  protectedProcedure,
-} from "~/server/api/trpc";
+import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
 
 export const participantRouter = createTRPCRouter({
   updateName: protectedProcedure
@@ -86,7 +83,6 @@ export const participantRouter = createTRPCRouter({
   }),
 
   getAllUsers: protectedProcedure.query(async ({ ctx }) => {
-    // Get all users except the current user
     const allUsers = await ctx.db.user.findMany({
       where: {
         id: { not: ctx.session.user.id },
@@ -99,7 +95,6 @@ export const participantRouter = createTRPCRouter({
       },
     });
 
-    // Extract email prefix (part before @) and return
     return allUsers.map((user) => {
       const emailPrefix = user.email?.split("@")[0] ?? "";
       return {
@@ -113,12 +108,10 @@ export const participantRouter = createTRPCRouter({
   updateReferral: protectedProcedure
     .input(z.object({ referralId: z.string().nullable() }))
     .mutation(async ({ ctx, input }) => {
-      // Prevent self-referral
       if (input.referralId === ctx.session.user.id) {
         throw new Error("Cannot refer yourself");
       }
 
-      // Verify referral user exists if provided
       if (input.referralId) {
         const referralUser = await ctx.db.user.findUnique({
           where: { id: input.referralId },

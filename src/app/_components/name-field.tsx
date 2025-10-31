@@ -21,7 +21,7 @@ export function NameField({ value, onChange, hasChanges }: NameFieldProps) {
           placeholder="Enter your name"
         />
         {hasChanges && (
-          <span className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 rounded border border-red-500 bg-red-500/20 px-2 py-0.5 text-xs font-medium text-red-400">
+          <span className="pointer-events-none absolute top-1/2 right-2 -translate-y-1/2 rounded border border-red-500 bg-red-500/20 px-2 py-0.5 text-xs font-medium text-red-400">
             Unsaved changes
           </span>
         )}
@@ -29,4 +29,3 @@ export function NameField({ value, onChange, hasChanges }: NameFieldProps) {
     </div>
   );
 }
-

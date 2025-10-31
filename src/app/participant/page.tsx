@@ -77,14 +77,16 @@ export default function ParticipantPage() {
   });
 
   const [name, setName] = useState("");
-  const [graduatingClass, setGraduatingClass] = useState<GraduatingClass | null>(null);
+  const [graduatingClass, setGraduatingClass] =
+    useState<GraduatingClass | null>(null);
   const [referralId, setReferralId] = useState<string | null>(null);
 
   useEffect(() => {
     if (user) {
       const newOriginalValues = {
         name: user.name ?? "",
-        graduatingClass: (user.graduatingClass ?? null) as GraduatingClass | null,
+        graduatingClass: (user.graduatingClass ??
+          null) as GraduatingClass | null,
         referralId: user.referralId ?? null,
       };
       setTimeout(() => {
@@ -103,7 +105,6 @@ export default function ParticipantPage() {
   const markParticipantPageVisited =
     api.participant.markParticipantPageVisited.useMutation({
       onSuccess: () => {
-        // Invalidate the user query to refresh the data
         void utils.participant.getCurrentUser.invalidate();
       },
     });
@@ -111,26 +112,24 @@ export default function ParticipantPage() {
   useEffect(() => {
     if (!user) return;
 
-    // Check if user hasn't visited participant page yet (from database)
     const hasVisited = user.hasVisitedParticipantPage ?? false;
-    
-    // Use ref to prevent multiple triggers in the same React render cycle
+
     const alreadyTriggered = confettiTriggeredRef.current === user.id;
 
     if (!hasVisited && !alreadyTriggered) {
-      // Mark as triggered in ref to prevent re-triggering
       confettiTriggeredRef.current = user.id;
       handleFirstVisit();
-      
-      // Mark as visited in database (this will invalidate the query and update hasVisitedParticipantPage)
+
       void markParticipantPageVisited.mutate();
     }
 
-    // Reset ref if user changes
-    if (confettiTriggeredRef.current && confettiTriggeredRef.current !== user.id) {
+    if (
+      confettiTriggeredRef.current &&
+      confettiTriggeredRef.current !== user.id
+    ) {
       confettiTriggeredRef.current = null;
     }
-  }, [user, handleFirstVisit, markParticipantPageVisited, utils]);
+  }, [user, markParticipantPageVisited, utils]);
 
   const hasChanges = useMemo(() => {
     return (

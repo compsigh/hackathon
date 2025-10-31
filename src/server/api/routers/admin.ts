@@ -1,46 +1,40 @@
 import { TRPCError } from "@trpc/server";
 
-import {
-  createTRPCRouter,
-  protectedProcedure,
-} from "~/server/api/trpc";
+import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
 
 export const adminRouter = createTRPCRouter({
-  getAllUsers: protectedProcedure
-    .query(async ({ ctx }) => {
-      // Check if user is admin
-      if (!ctx.session.user.isAdmin) {
-        throw new TRPCError({
-          code: "FORBIDDEN",
-          message: "Only admins can access this resource",
-        });
-      }
+  getAllUsers: protectedProcedure.query(async ({ ctx }) => {
+    if (!ctx.session.user.isAdmin) {
+      throw new TRPCError({
+        code: "FORBIDDEN",
+        message: "Only admins can access this resource",
+      });
+    }
 
-      const users = await ctx.db.user.findMany({
-        orderBy: { email: "asc" },
-        include: {
-          team: {
-            select: {
-              id: true,
-              name: true,
-            },
-          },
-          referrals: {
-            select: {
-              id: true,
-            },
-          },
-          referredBy: {
-            select: {
-              id: true,
-              name: true,
-              email: true,
-            },
+    const users = await ctx.db.user.findMany({
+      orderBy: { email: "asc" },
+      include: {
+        team: {
+          select: {
+            id: true,
+            name: true,
           },
         },
-      });
+        referrals: {
+          select: {
+            id: true,
+          },
+        },
+        referredBy: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+          },
+        },
+      },
+    });
 
-      return users;
-    }),
+    return users;
+  }),
 });
-

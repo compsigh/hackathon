@@ -40,7 +40,6 @@ export function ReferralField({
       : null;
   }, [value, allUsers]);
 
-  // Client-side search using fuse.js
   const searchResults = useMemo(() => {
     if (!allUsers || !showDropdown) return [];
 
@@ -72,14 +71,12 @@ export function ReferralField({
     return results.slice(0, 10).map((result) => result.item);
   }, [allUsers, searchQuery, showDropdown]);
 
-  // Focus input when dropdown opens
   useEffect(() => {
     if (showDropdown && inputRef.current) {
       inputRef.current.focus();
     }
   }, [showDropdown]);
 
-  // Scroll selected item into view when navigating with keyboard
   useEffect(() => {
     if (selectedRef.current) {
       selectedRef.current.scrollIntoView({
@@ -89,7 +86,6 @@ export function ReferralField({
     }
   }, [selectedIndex]);
 
-  // Handle click outside to close dropdown
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -112,11 +108,6 @@ export function ReferralField({
     onChange(referrer.id);
     setSearchQuery("");
     setShowDropdown(false);
-  };
-
-  const handleClear = () => {
-    onChange(null);
-    setSearchQuery("");
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -196,11 +187,13 @@ export function ReferralField({
                 onKeyDown={handleKeyDown}
                 placeholder="Search by name or email..."
                 className={`w-full rounded-lg border ${
-                  hasChanges ? "border-red-500" : "border-[var(--color-light-30)]"
+                  hasChanges
+                    ? "border-red-500"
+                    : "border-[var(--color-light-30)]"
                 } bg-[var(--color-dark)] px-4 py-2 pr-40 text-[var(--color-light)] focus:border-[var(--color-compsigh)] focus:outline-none ${ProtoMono.className}`}
               />
               {hasChanges && !showDropdown && (
-                <span className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 rounded border border-red-500 bg-red-500/20 px-2 py-0.5 text-xs font-medium text-red-400">
+                <span className="pointer-events-none absolute top-1/2 right-2 -translate-y-1/2 rounded border border-red-500 bg-red-500/20 px-2 py-0.5 text-xs font-medium text-red-400">
                   Unsaved changes
                 </span>
               )}
@@ -208,7 +201,7 @@ export function ReferralField({
             {showDropdown && searchResults && searchResults.length > 0 && (
               <div
                 ref={dropdownRef}
-                className="absolute left-0 top-full z-10 mt-1 max-h-60 w-full overflow-auto rounded-lg border border-[var(--color-light-30)] bg-[var(--color-dark)] shadow-lg"
+                className="absolute top-full left-0 z-10 mt-1 max-h-60 w-full overflow-auto rounded-lg border border-[var(--color-light-30)] bg-[var(--color-dark)] shadow-lg"
               >
                 {searchResults.map((result, index) => (
                   <button
@@ -251,4 +244,3 @@ export function ReferralField({
     </div>
   );
 }
-

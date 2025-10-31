@@ -1,15 +1,11 @@
 import { z } from "zod";
 
-import {
-  createTRPCRouter,
-  protectedProcedure,
-} from "~/server/api/trpc";
+import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
 
 export const teamRouter = createTRPCRouter({
   create: protectedProcedure
     .input(z.object({ name: z.string().min(1) }))
     .mutation(async ({ ctx, input }) => {
-      // Check if user already has a team
       const user = await ctx.db.user.findUnique({
         where: { id: ctx.session.user.id },
         include: { team: true },
@@ -19,7 +15,6 @@ export const teamRouter = createTRPCRouter({
         throw new Error("User is already in a team");
       }
 
-      // Check if team name already exists
       const existingTeam = await ctx.db.team.findFirst({
         where: { name: input.name },
       });
@@ -93,7 +88,6 @@ export const teamRouter = createTRPCRouter({
         throw new Error("User is not in a team");
       }
 
-      // Check if team name already exists (excluding current team)
       const existingTeam = await ctx.db.team.findFirst({
         where: {
           name: input.name,
@@ -121,7 +115,6 @@ export const teamRouter = createTRPCRouter({
       throw new Error("You are not in a team");
     }
 
-    // Get the team with all members
     const team = await ctx.db.team.findUnique({
       where: { id: user.teamId },
       include: { members: true },
@@ -131,7 +124,6 @@ export const teamRouter = createTRPCRouter({
       throw new Error("Team not found");
     }
 
-    // If this is the last member, delete the team
     if (team.members.length === 1) {
       await ctx.db.team.delete({
         where: { id: user.teamId },
@@ -139,7 +131,6 @@ export const teamRouter = createTRPCRouter({
       return { success: true, teamDeleted: true };
     }
 
-    // Otherwise, just remove the user from the team
     await ctx.db.user.update({
       where: { id: ctx.session.user.id },
       data: { teamId: null },
@@ -165,7 +156,6 @@ export const teamRouter = createTRPCRouter({
     return team?.members ?? [];
   }),
 
-  // Invite functionality
   createInvite: protectedProcedure
     .input(
       z.object({
@@ -174,7 +164,6 @@ export const teamRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      // Check if the sender is in a team
       const sender = await ctx.db.user.findUnique({
         where: { id: ctx.session.user.id },
       });
@@ -183,7 +172,6 @@ export const teamRouter = createTRPCRouter({
         throw new Error("You must be in a team to send invites");
       }
 
-      // Check if the receiver exists and is not in a team
       const receiver = await ctx.db.user.findUnique({
         where: { id: input.toUserId },
       });
@@ -196,7 +184,6 @@ export const teamRouter = createTRPCRouter({
         throw new Error("User is already in a team");
       }
 
-      // Check if there's already a pending invite
       const existingInvite = await ctx.db.invite.findUnique({
         where: {
           toUserId_teamId: {
@@ -228,7 +215,6 @@ export const teamRouter = createTRPCRouter({
   acceptInvite: protectedProcedure
     .input(z.object({ inviteId: z.string() }))
     .mutation(async ({ ctx, input }) => {
-      // Get the invite
       const invite = await ctx.db.invite.findUnique({
         where: { id: input.inviteId },
       });
@@ -237,17 +223,14 @@ export const teamRouter = createTRPCRouter({
         throw new Error("Invite not found");
       }
 
-      // Check if the invite is for the current user
       if (invite.toUserId !== ctx.session.user.id) {
         throw new Error("This invite is not for you");
       }
 
-      // Check if the invite is still pending
       if (invite.status !== "PENDING") {
         throw new Error("This invite has already been responded to");
       }
 
-      // Check if user is already in a team
       const user = await ctx.db.user.findUnique({
         where: { id: ctx.session.user.id },
       });
@@ -256,7 +239,6 @@ export const teamRouter = createTRPCRouter({
         throw new Error("You are already in a team");
       }
 
-      // Accept the invite and add user to team
       await ctx.db.invite.update({
         where: { id: input.inviteId },
         data: { status: "ACCEPTED" },
@@ -273,7 +255,6 @@ export const teamRouter = createTRPCRouter({
   declineInvite: protectedProcedure
     .input(z.object({ inviteId: z.string() }))
     .mutation(async ({ ctx, input }) => {
-      // Get the invite
       const invite = await ctx.db.invite.findUnique({
         where: { id: input.inviteId },
       });
@@ -282,17 +263,14 @@ export const teamRouter = createTRPCRouter({
         throw new Error("Invite not found");
       }
 
-      // Check if the invite is for the current user
       if (invite.toUserId !== ctx.session.user.id) {
         throw new Error("This invite is not for you");
       }
 
-      // Check if the invite is still pending
       if (invite.status !== "PENDING") {
         throw new Error("This invite has already been responded to");
       }
 
-      // Decline the invite
       return await ctx.db.invite.update({
         where: { id: input.inviteId },
         data: { status: "DECLINED" },

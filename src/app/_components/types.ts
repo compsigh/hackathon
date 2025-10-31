@@ -25,4 +25,3 @@ export function formatGraduatingClass(
   if (gradClass === "MASTERS") return "Masters";
   return gradClass.slice(2);
 }
-

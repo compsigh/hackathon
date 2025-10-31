@@ -30,4 +30,3 @@ export function SuccessMessage({ show }: SuccessMessageProps) {
     </div>
   );
 }
-

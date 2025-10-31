@@ -5,9 +5,7 @@ export function useShare() {
   const [hasShareAPI, setHasShareAPI] = useState(false);
 
   useEffect(() => {
-    setHasShareAPI(
-      typeof navigator !== "undefined" && "share" in navigator,
-    );
+    setHasShareAPI(typeof navigator !== "undefined" && "share" in navigator);
   }, []);
 
   const share = async (url: string, title: string, text: string) => {
@@ -22,7 +20,6 @@ export function useShare() {
         return false;
       }
     } else {
-      // Fallback to clipboard copy
       try {
         await navigator.clipboard.writeText(url);
         setCopied(true);
@@ -30,7 +27,7 @@ export function useShare() {
         return true;
       } catch (error) {
         console.error("Failed to copy:", error);
-        // Fallback for older browsers
+
         const textArea = document.createElement("textarea");
         textArea.value = url;
         textArea.style.position = "fixed";
@@ -38,7 +35,6 @@ export function useShare() {
         document.body.appendChild(textArea);
         textArea.select();
         try {
-          // eslint-disable-next-line deprecation/deprecation -- Fallback for older browsers
           document.execCommand("copy");
           setCopied(true);
           setTimeout(() => setCopied(false), 2000);
@@ -59,4 +55,3 @@ export function useShare() {
     hasShareAPI,
   };
 }
-

@@ -13,21 +13,14 @@ export default function AdminPage() {
   const { data: session, status } = useSession();
   const router = useRouter();
 
-  const { data: users, isLoading } = api.admin.getAllUsers.useQuery(
-    undefined,
-    {
-      enabled: status === "authenticated",
-    },
-  );
+  const { data: users, isLoading } = api.admin.getAllUsers.useQuery(undefined, {
+    enabled: status === "authenticated",
+  });
 
-  // Redirect if not authenticated or not admin
   useEffect(() => {
     if (status === "unauthenticated") {
       router.push("/api/auth/signin");
-    } else if (
-      status === "authenticated" &&
-      !session?.user?.isAdmin
-    ) {
+    } else if (status === "authenticated" && !session?.user?.isAdmin) {
       router.push("/");
     }
   }, [status, session, router]);
@@ -66,9 +59,7 @@ export default function AdminPage() {
           </p>
         </div>
 
-        <div className="space-y-6">
-          {users && <UsersTable users={users} />}
-        </div>
+        <div className="space-y-6">{users && <UsersTable users={users} />}</div>
       </div>
     </main>
   );

@@ -37,4 +37,3 @@ export function LogoBrand({ href = "/", target, rel }: LogoBrandProps) {
     </div>
   );
 }
-

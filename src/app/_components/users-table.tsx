@@ -143,4 +143,3 @@ export function UsersTable({ users }: UsersTableProps) {
     </div>
   );
 }
-

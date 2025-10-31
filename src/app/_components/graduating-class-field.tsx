@@ -24,7 +24,6 @@ export function GraduatingClassField({
   const dropdownRef = useRef<HTMLDivElement>(null);
   const selectedRef = useRef<HTMLButtonElement>(null);
 
-  // Scroll selected item into view when navigating with keyboard
   useEffect(() => {
     if (selectedRef.current) {
       selectedRef.current.scrollIntoView({
@@ -34,7 +33,6 @@ export function GraduatingClassField({
     }
   }, [selectedIndex]);
 
-  // Handle click outside to close dropdown
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -90,9 +88,7 @@ export function GraduatingClassField({
 
   return (
     <div className="relative">
-      <label className="mb-2 block text-sm font-medium">
-        Graduating Class
-      </label>
+      <label className="mb-2 block text-sm font-medium">Graduating Class</label>
       <div className="flex gap-2">
         {value && !showDropdown ? (
           <button
@@ -157,12 +153,12 @@ export function GraduatingClassField({
               )}
             </button>
             {hasChanges && !showDropdown && (
-              <span className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 rounded border border-red-500 bg-red-500/20 px-2 py-0.5 text-xs font-medium text-red-400">
+              <span className="pointer-events-none absolute top-1/2 right-2 -translate-y-1/2 rounded border border-red-500 bg-red-500/20 px-2 py-0.5 text-xs font-medium text-red-400">
                 Unsaved changes
               </span>
             )}
             {showDropdown && (
-              <div className="absolute left-0 top-full z-10 mt-1 max-h-60 w-full overflow-auto rounded-lg border border-[var(--color-light-30)] bg-[var(--color-dark)] shadow-lg">
+              <div className="absolute top-full left-0 z-10 mt-1 max-h-60 w-full overflow-auto rounded-lg border border-[var(--color-light-30)] bg-[var(--color-dark)] shadow-lg">
                 {GRADUATING_CLASS_OPTIONS.map((option, index) => (
                   <button
                     key={option.value}
@@ -190,4 +186,3 @@ export function GraduatingClassField({
     </div>
   );
 }
-
