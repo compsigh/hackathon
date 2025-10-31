@@ -1,27 +1,20 @@
-import { FlatCompat } from "@eslint/eslintrc";
 import tseslint from "typescript-eslint";
-import path from "path";
-import { fileURLToPath } from "url";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-});
+import reactHooks from "eslint-plugin-react-hooks";
 
 export default tseslint.config(
   {
     ignores: [".next", "next-env.d.ts"],
   },
-  ...compat.extends("next/core-web-vitals"),
+  ...tseslint.configs.recommended,
   {
     files: ["**/*.ts", "**/*.tsx"],
     extends: [
-      ...tseslint.configs.recommended,
       ...tseslint.configs.recommendedTypeChecked,
       ...tseslint.configs.stylisticTypeChecked,
     ],
+    plugins: {
+      "react-hooks": reactHooks,
+    },
     rules: {
       "@typescript-eslint/array-type": "off",
       "@typescript-eslint/consistent-type-definitions": "off",
@@ -38,16 +31,16 @@ export default tseslint.config(
         "error",
         { checksVoidReturn: { attributes: false } },
       ],
-    },
-  },
-  {
-    linterOptions: {
-      reportUnusedDisableDirectives: true,
+      "react-hooks/exhaustive-deps": "warn",
+      "react-hooks/rules-of-hooks": "error",
     },
     languageOptions: {
       parserOptions: {
         projectService: true,
       },
+    },
+    linterOptions: {
+      reportUnusedDisableDirectives: true,
     },
   },
 );

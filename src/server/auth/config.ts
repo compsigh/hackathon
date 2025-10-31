@@ -36,15 +36,6 @@ export const authConfig = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
       allowDangerousEmailAccountLinking: true,
     }),
-    /**
-     * ...add more providers here.
-     *
-     * Most other providers require a bit more work than the Discord provider. For example, the
-     * GitHub provider requires you to add the `refresh_token_expires_in` field to the Account
-     * model. Refer to the NextAuth.js docs for the provider you want to use. Example:
-     *
-     * @see https://next-auth.js.org/providers/github
-     */
   ],
   adapter: PrismaAdapter(db),
   pages: {
@@ -53,16 +44,14 @@ export const authConfig = {
   },
   callbacks: {
     signIn: async ({ user }) => {
-      // Only allow usfca.edu emails
       if (user.email && !user.email.endsWith("usfca.edu")) {
         return false;
       }
       return true;
     },
     session: async ({ session, user }) => {
-      // Check if user's email is in the AdminEmail table
       let isAdmin = false;
-      if (session.user.email) {
+      if (session.user?.email) {
         const adminEmail = await db.adminEmail.findUnique({
           where: { email: session.user.email },
         });

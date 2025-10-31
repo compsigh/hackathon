@@ -94,8 +94,10 @@ export default function ParticipantPage() {
   }, [user]);
 
   const handleFirstVisit = useEffectEvent(() => {
-    void markParticipantPageVisited.mutateAsync();
-    confetti({
+    void markParticipantPageVisited.mutateAsync().catch(() => {
+      // Silently handle errors
+    });
+    void confetti({
       particleCount: 100,
       spread: 70,
       origin: { y: 0.6 },
@@ -116,7 +118,7 @@ export default function ParticipantPage() {
     if (confettiTriggeredRef.current && confettiTriggeredRef.current !== user.id) {
       confettiTriggeredRef.current = null;
     }
-  }, [user, handleFirstVisit]);
+  }, [user]);
 
   const hasChanges = useMemo(() => {
     return (

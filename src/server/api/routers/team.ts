@@ -206,7 +206,7 @@ export const teamRouter = createTRPCRouter({
         },
       });
 
-      if (existingInvite && existingInvite.status === "PENDING") {
+      if (existingInvite?.status === "PENDING") {
         throw new Error("Invite already sent");
       }
 
