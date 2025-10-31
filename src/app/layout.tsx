@@ -14,6 +14,25 @@ export const metadata: Metadata = {
   title: "DEPLOY/25",
   description:
     "compsigh's third annual hackathon, and our biggest event of the semester. A not-to-miss, hype weekend for meeting cool people && building cool things.",
+  openGraph: {
+    title: "DEPLOY/25",
+    description:
+      "compsigh's third annual hackathon, and our biggest event of the semester. A not-to-miss, hype weekend for meeting cool people && building cool things.",
+    images: [
+      {
+        url: "/opengraph-image.png",
+        alt: "DEPLOY/25 - compsigh's third annual hackathon",
+        width: 1200,
+        height: 630,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "DEPLOY/25",
+    description:
+      "compsigh's third annual hackathon, and our biggest event of the semester. A not-to-miss, hype weekend for meeting cool people && building cool things.",
+  },
 };
 
 const iAWriterQuattro = localFont({
