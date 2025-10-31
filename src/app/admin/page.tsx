@@ -3,6 +3,7 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import Link from "next/link";
 import { api } from "~/trpc/react";
 import { Navbar } from "../_components/navbar";
 import { LogoBrand } from "../_components/logo-brand";
@@ -49,6 +50,21 @@ export default function AdminPage() {
       <LogoBrand />
       <div className="container mx-auto max-w-2xl px-4 pt-28 pb-8 sm:pt-20">
         <h1 className="mb-8 text-4xl font-bold">Admin Dashboard</h1>
+
+        <div className="mb-6 rounded-lg border-2 border-[var(--color-compsigh)] p-4">
+          <p className="text-sm text-[var(--color-light)]">
+            <strong className="text-[var(--color-compsigh)]">
+              Participant View:
+            </strong>{" "}
+            Switch to participant view.{" "}
+            <Link
+              href="/participant"
+              className="font-medium text-[var(--color-compsigh)] hover:underline hover:decoration-[var(--color-compsigh)]"
+            >
+              Access participant panel →
+            </Link>
+          </p>
+        </div>
 
         <div className="space-y-6">
           {users && <UsersTable users={users} />}
