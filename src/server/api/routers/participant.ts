@@ -60,4 +60,19 @@ export const participantRouter = createTRPCRouter({
 
     return user;
   }),
+
+  markParticipantPageVisited: protectedProcedure.mutation(async ({ ctx }) => {
+    const user = await ctx.db.user.findUnique({
+      where: { id: ctx.session.user.id },
+    });
+
+    if (user && !user.hasVisitedParticipantPage) {
+      return await ctx.db.user.update({
+        where: { id: ctx.session.user.id },
+        data: { hasVisitedParticipantPage: true },
+      });
+    }
+
+    return user;
+  }),
 });

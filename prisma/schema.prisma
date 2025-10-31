@@ -55,6 +55,7 @@ model User {
     graduatingClass GraduatingClass?
     attended        Boolean          @default(false)
     teamId          String?
+    hasVisitedParticipantPage Boolean @default(false)
     
     // Relations
     accounts      Account[]

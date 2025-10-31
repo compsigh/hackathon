@@ -2,9 +2,10 @@
 
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useEffectEvent, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import confetti from "canvas-confetti";
 import { api } from "~/trpc/react";
 import { Navbar } from "../_components/navbar";
 import { ProtoMono } from "../fonts";
@@ -14,7 +15,6 @@ export default function ParticipantPage() {
   const router = useRouter();
   const utils = api.useUtils();
 
-  // Redirect unauthenticated users
   useEffect(() => {
     if (status === "unauthenticated") {
       router.push("/");
@@ -41,10 +41,16 @@ export default function ParticipantPage() {
       },
     });
 
-  // Track save success state
-  const [showSuccess, setShowSuccess] = useState(false);
+  const markParticipantPageVisited =
+    api.participant.markParticipantPageVisited.useMutation({
+      onSuccess: () => {
+        void utils.participant.getCurrentUser.invalidate();
+      },
+    });
 
-  // Store original values from user data
+  const [showSuccess, setShowSuccess] = useState(false);
+  const confettiTriggeredRef = useRef<string | null>(null);
+
   const [originalValues, setOriginalValues] = useState({
     name: "",
     graduatingClass: "CO2025" as
@@ -56,7 +62,6 @@ export default function ParticipantPage() {
       | "MASTERS",
   });
 
-  // Store current edited values
   const [name, setName] = useState("");
   const [graduatingClass, setGraduatingClass] = useState(
     "CO2025" as
@@ -68,7 +73,6 @@ export default function ParticipantPage() {
       | "MASTERS",
   );
 
-  // Update both original and current values when user data loads
   useEffect(() => {
     if (user) {
       const newOriginalValues = {
@@ -81,7 +85,6 @@ export default function ParticipantPage() {
           | "CO2025"
           | "MASTERS",
       };
-      // Use setTimeout to avoid calling setState synchronously within an effect
       setTimeout(() => {
         setOriginalValues(newOriginalValues);
         setName(newOriginalValues.name);
@@ -90,7 +93,31 @@ export default function ParticipantPage() {
     }
   }, [user]);
 
-  // Check if any changes have been made
+  const handleFirstVisit = useEffectEvent(() => {
+    void markParticipantPageVisited.mutateAsync();
+    confetti({
+      particleCount: 100,
+      spread: 70,
+      origin: { y: 0.6 },
+    });
+  });
+
+  useEffect(() => {
+    if (!user) return;
+    
+    const hasVisited = user.hasVisitedParticipantPage ?? false;
+    const alreadyTriggered = confettiTriggeredRef.current === user.id;
+    
+    if (!hasVisited && !alreadyTriggered) {
+      confettiTriggeredRef.current = user.id;
+      handleFirstVisit();
+    }
+    
+    if (confettiTriggeredRef.current && confettiTriggeredRef.current !== user.id) {
+      confettiTriggeredRef.current = null;
+    }
+  }, [user, handleFirstVisit]);
+
   const hasChanges = useMemo(() => {
     return (
       name !== originalValues.name ||
@@ -180,9 +207,35 @@ export default function ParticipantPage() {
       <div className="container mx-auto max-w-2xl px-4 pt-28 pb-8 sm:pt-20">
         <h1 className="mb-8 text-4xl font-bold">Participant Dashboard</h1>
 
+          {/* Success Message */}
+          {showSuccess && (
+            <div
+              className="mb-6 rounded-lg border-2 border-green-500 bg-green-500/10 px-4 py-3 text-green-400"
+              role="alert"
+              aria-live="polite"
+            >
+              <div className="flex items-center gap-2">
+                <svg
+                  className="h-5 w-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+                <span className="font-medium">Changes saved successfully!</span>
+              </div>
+            </div>
+          )}
+
           {/* Admin Notice */}
           {session?.user?.isAdmin && (
-            <div className="m-6 rounded-lg border-2 border-[var(--color-compsigh)] p-4">
+            <div className="mb-6 rounded-lg border-2 border-[var(--color-compsigh)] p-4">
                 <p className="text-sm text-[var(--color-light)]">
                   <strong className="text-[var(--color-compsigh)]">
                     Admin Access:
@@ -281,32 +334,6 @@ export default function ParticipantPage() {
               className={`w-full cursor-not-allowed rounded-lg border border-[var(--color-light-30)] bg-[var(--color-dark)] px-4 py-2 text-[var(--color-light-50)] ${ProtoMono.className}`}
             />
           </div>
-
-          {/* Success Message */}
-          {showSuccess && (
-            <div
-              className="rounded-lg border-2 border-green-500 bg-green-500/10 px-4 py-3 text-green-400"
-              role="alert"
-              aria-live="polite"
-            >
-              <div className="flex items-center gap-2">
-                <svg
-                  className="h-5 w-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M5 13l4 4L19 7"
-                  />
-                </svg>
-                <span className="font-medium">Changes saved successfully!</span>
-              </div>
-            </div>
-          )}
 
           {/* Action Buttons */}
           <div className="flex gap-4 pt-4">
