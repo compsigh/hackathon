@@ -100,21 +100,37 @@ export default function ParticipantPage() {
     triggerFirstVisitConfetti();
   });
 
+  const markParticipantPageVisited =
+    api.participant.markParticipantPageVisited.useMutation({
+      onSuccess: () => {
+        // Invalidate the user query to refresh the data
+        void utils.participant.getCurrentUser.invalidate();
+      },
+    });
+
   useEffect(() => {
     if (!user) return;
 
+    // Check if user hasn't visited participant page yet (from database)
     const hasVisited = user.hasVisitedParticipantPage ?? false;
+    
+    // Use ref to prevent multiple triggers in the same React render cycle
     const alreadyTriggered = confettiTriggeredRef.current === user.id;
 
     if (!hasVisited && !alreadyTriggered) {
+      // Mark as triggered in ref to prevent re-triggering
       confettiTriggeredRef.current = user.id;
       handleFirstVisit();
+      
+      // Mark as visited in database (this will invalidate the query and update hasVisitedParticipantPage)
+      void markParticipantPageVisited.mutate();
     }
 
+    // Reset ref if user changes
     if (confettiTriggeredRef.current && confettiTriggeredRef.current !== user.id) {
       confettiTriggeredRef.current = null;
     }
-  }, [user, handleFirstVisit]);
+  }, [user, handleFirstVisit, markParticipantPageVisited, utils]);
 
   const hasChanges = useMemo(() => {
     return (
