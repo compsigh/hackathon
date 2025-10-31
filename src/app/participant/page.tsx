@@ -209,31 +209,43 @@ export default function ParticipantPage() {
       <div className="container mx-auto max-w-2xl px-4 pt-28 pb-8 sm:pt-20">
         <h1 className="mb-8 text-4xl font-bold">Participant Dashboard</h1>
 
-          {/* Success Message */}
-          {showSuccess && (
-            <div
-              className="mb-6 rounded-lg border-2 border-green-500 bg-green-500/10 px-4 py-3 text-green-400"
-              role="alert"
-              aria-live="polite"
-            >
-              <div className="flex items-center gap-2">
-                <svg
-                  className="h-5 w-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M5 13l4 4L19 7"
-                  />
-                </svg>
-                <span className="font-medium">Changes saved successfully!</span>
-              </div>
+          {/* You're in! Notice */}
+          <div className="mb-6 rounded-lg border-2 border-green-500 bg-green-500/10 px-4 py-3 text-green-400">
+            <div className="flex items-center gap-2">
+              <svg
+                className="h-5 w-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M5 13l4 4L19 7"
+                />
+              </svg>
+              <span className="font-medium text-lg">You're registered! We'll see you at the event!</span>
             </div>
-          )}
+          </div>
+
+          {/* Team Registration Note */}
+          <div className="mb-6 rounded-lg border-2 border-[var(--color-compsigh)] bg-[var(--color-compsigh)]/10 p-6">
+            <p className="text-lg text-[var(--color-light)]">
+              <strong className="text-[var(--color-compsigh)]">
+                Team registration will open on November 7th at 6pm.
+              </strong>{" "}
+              Get your friends or desired teammates to register as participants!
+            </p>
+            <p className="mt-3">
+              <Link
+                href="/agenda"
+                className="text-[var(--color-compsigh)] hover:underline hover:decoration-[var(--color-compsigh)]"
+              >
+                View the agenda →
+              </Link>
+            </p>
+          </div>
 
           {/* Admin Notice */}
           {session?.user?.isAdmin && (
@@ -361,23 +373,31 @@ export default function ParticipantPage() {
             </button>
           </div>
 
-          {/* Team Registration Note */}
-          <div className="mt-8 rounded-lg border-2 border-[var(--color-compsigh)] bg-[var(--color-compsigh)]/10 p-6">
-            <p className="text-lg text-[var(--color-light)]">
-              <strong className="text-[var(--color-compsigh)]">
-                Team registration will open on November 7th at 6pm.
-              </strong>{" "}
-              Get your friends or desired teammates to register as participants!
-            </p>
-            <p className="mt-3">
-              <Link
-                href="/agenda"
-                className="text-[var(--color-compsigh)] hover:underline hover:decoration-[var(--color-compsigh)]"
-              >
-                View the agenda →
-              </Link>
-            </p>
-          </div>
+          {/* Success Message */}
+          {showSuccess && (
+            <div
+              className="mt-4 rounded-lg border-2 border-green-500 bg-green-500/10 px-4 py-3 text-green-400"
+              role="alert"
+              aria-live="polite"
+            >
+              <div className="flex items-center gap-2">
+                <svg
+                  className="h-5 w-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+                <span className="font-medium">Changes saved successfully!</span>
+              </div>
+            </div>
+          )}
 
         </div>
       </div>
