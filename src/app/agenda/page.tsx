@@ -1,36 +1,14 @@
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
 import { Navbar } from "../_components/navbar";
+import { LogoBrand } from "../_components/logo-brand";
 import { ProtoMono } from "../fonts";
 
 export default function AgendaPage() {
   return (
     <main className="relative min-h-screen">
       <Navbar />
-      {/* Logo/Brand */}
-      <div className="absolute top-0 left-0 z-10 p-4">
-        <Link
-          href="/"
-          className="flex h-10 cursor-pointer items-center space-x-3 hover:underline"
-        >
-          <Image
-            src="/compsigh-logo-glowing.png"
-            alt="deploy 25"
-            width={100}
-            height={100}
-            className="h-full w-auto"
-          />
-          <span
-            className={`text-xl tracking-tight [text-shadow:0_0_10px_var(--color-compsigh-60)] sm:text-2xl ${ProtoMono.className}`}
-          >
-            <span className="animate-[fade_2s_linear_infinite]">►</span>DEPLOY/
-            <span className="text-[var(--color-compsigh)]">25</span>
-          </span>
-        </Link>
-      </div>
-
+      <LogoBrand />
       <div className="container mx-auto max-w-4xl px-4 pt-28 pb-8 sm:pt-20">
         <h1 className={`mb-8 text-4xl font-bold ${ProtoMono.className}`}>
           AGENDA
