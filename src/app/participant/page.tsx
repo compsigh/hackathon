@@ -94,14 +94,35 @@ export default function ParticipantPage() {
   }, [user]);
 
   const handleFirstVisit = useEffectEvent(() => {
-    void markParticipantPageVisited.mutateAsync().catch(() => {
-      // Silently handle errors
-    });
-    void confetti({
-      particleCount: 100,
-      spread: 70,
-      origin: { y: 0.6 },
-    });
+    // void markParticipantPageVisited.mutateAsync().catch(() => {
+    //   // Silently handle errors
+    // });
+    const count = 3000;
+    const topCenter = { x: 0.5, y: 0 }; // Top edge center
+    const numberOfEmitters = 24; // Number of emitters along bottom edge
+    
+    // Place emitters evenly along the bottom edge
+    for (let i = 0; i < numberOfEmitters; i++) {
+      // Calculate x position along bottom edge (0 to 1)
+      const emitterX = i / (numberOfEmitters - 1);
+      const emitterY = 1; // Bottom edge
+      
+      // Calculate angle from emitter to top center
+      // Confetti angles: 0° = right, 90° = up, 180° = left, 270° = down
+      const dx = topCenter.x - emitterX;
+      const dy = topCenter.y - emitterY;
+      const angleToTop = Math.atan2(-dy, dx) * (180 / Math.PI); // Negative dy because y increases downward
+      
+      confetti({
+        particleCount: Math.floor(count / numberOfEmitters),
+        angle: angleToTop,
+        spread: 30,
+        startVelocity: 70,
+        origin: { x: emitterX, y: emitterY },
+        decay: 0.92,
+        scalar: 1,
+      });
+    }
   });
 
   useEffect(() => {
