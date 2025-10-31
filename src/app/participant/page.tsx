@@ -41,49 +41,45 @@ export default function ParticipantPage() {
       },
     });
 
-  const markParticipantPageVisited =
-    api.participant.markParticipantPageVisited.useMutation({
-      onSuccess: () => {
-        void utils.participant.getCurrentUser.invalidate();
-      },
-    });
-
   const [showSuccess, setShowSuccess] = useState(false);
   const confettiTriggeredRef = useRef<string | null>(null);
 
   const [originalValues, setOriginalValues] = useState({
     name: "",
-    graduatingClass: "CO2025" as
+    graduatingClass: null as
       | "CO2029"
       | "CO2028"
       | "CO2027"
       | "CO2026"
       | "CO2025"
-      | "MASTERS",
+      | "MASTERS"
+      | null,
   });
 
   const [name, setName] = useState("");
   const [graduatingClass, setGraduatingClass] = useState(
-    "CO2025" as
+    null as
       | "CO2029"
       | "CO2028"
       | "CO2027"
       | "CO2026"
       | "CO2025"
-      | "MASTERS",
+      | "MASTERS"
+      | null,
   );
 
   useEffect(() => {
     if (user) {
       const newOriginalValues = {
         name: user.name ?? "",
-        graduatingClass: (user.graduatingClass ?? "CO2025") as
+        graduatingClass: (user.graduatingClass ?? null) as
           | "CO2029"
           | "CO2028"
           | "CO2027"
           | "CO2026"
           | "CO2025"
-          | "MASTERS",
+          | "MASTERS"
+          | null,
       };
       setTimeout(() => {
         setOriginalValues(newOriginalValues);
@@ -113,7 +109,7 @@ export default function ParticipantPage() {
       const dy = topCenter.y - emitterY;
       const angleToTop = Math.atan2(-dy, dx) * (180 / Math.PI); // Negative dy because y increases downward
       
-      confetti({
+      void confetti({
         particleCount: Math.floor(count / numberOfEmitters),
         angle: angleToTop,
         spread: 30,
@@ -158,7 +154,9 @@ export default function ParticipantPage() {
         promises.push(updateName.mutateAsync({ name }));
       }
       if (graduatingClass !== originalValues.graduatingClass) {
-        promises.push(updateGraduatingClass.mutateAsync({ graduatingClass }));
+        if (graduatingClass !== null) {
+          promises.push(updateGraduatingClass.mutateAsync({ graduatingClass }));
+        }
       }
 
       await Promise.all(promises);
@@ -305,21 +303,29 @@ export default function ParticipantPage() {
               Graduating Class
             </label>
             <select
-              value={graduatingClass}
+              value={graduatingClass ?? ""}
               onChange={(e) => {
+                const value = e.target.value;
                 setGraduatingClass(
-                  e.target.value as
+                  value === "" ? null : (value as
                     | "CO2029"
                     | "CO2028"
                     | "CO2027"
                     | "CO2026"
                     | "CO2025"
-                    | "MASTERS",
+                    | "MASTERS"),
                 );
               }}
               className={`w-full cursor-pointer rounded-lg border border-[var(--color-light-30)] bg-[var(--color-dark)] px-4 py-2 text-[var(--color-light)] focus:border-[var(--color-compsigh)] focus:outline-none ${ProtoMono.className}`}
               style={{ colorScheme: "dark" }}
             >
+              <option
+                value=""
+                disabled
+                className="bg-[var(--color-dark)] text-[var(--color-light-50)]"
+              >
+                Select a class
+              </option>
               <option
                 value="CO2029"
                 className="bg-[var(--color-dark)] text-[var(--color-light)]"
