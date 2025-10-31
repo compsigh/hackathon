@@ -56,6 +56,15 @@ export const participantRouter = createTRPCRouter({
   getCurrentUser: protectedProcedure.query(async ({ ctx }) => {
     const user = await ctx.db.user.findUnique({
       where: { id: ctx.session.user.id },
+      include: {
+        referredBy: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+          },
+        },
+      },
     });
 
     return user;
@@ -74,5 +83,85 @@ export const participantRouter = createTRPCRouter({
     }
 
     return user;
+  }),
+
+  getAllUsers: protectedProcedure.query(async ({ ctx }) => {
+    // Get all users except the current user
+    const allUsers = await ctx.db.user.findMany({
+      where: {
+        id: { not: ctx.session.user.id },
+        email: { not: null },
+      },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+      },
+    });
+
+    // Extract email prefix (part before @) and return
+    return allUsers.map((user) => {
+      const emailPrefix = user.email?.split("@")[0] ?? "";
+      return {
+        id: user.id,
+        name: user.name,
+        emailPrefix,
+      };
+    });
+  }),
+
+  updateReferral: protectedProcedure
+    .input(z.object({ referralId: z.string().nullable() }))
+    .mutation(async ({ ctx, input }) => {
+      // Prevent self-referral
+      if (input.referralId === ctx.session.user.id) {
+        throw new Error("Cannot refer yourself");
+      }
+
+      // Verify referral user exists if provided
+      if (input.referralId) {
+        const referralUser = await ctx.db.user.findUnique({
+          where: { id: input.referralId },
+        });
+        if (!referralUser) {
+          throw new Error("Referral user not found");
+        }
+      }
+
+      return await ctx.db.user.update({
+        where: { id: ctx.session.user.id },
+        data: { referralId: input.referralId },
+      });
+    }),
+
+  getReferralStats: protectedProcedure.query(async ({ ctx }) => {
+    const user = await ctx.db.user.findUnique({
+      where: { id: ctx.session.user.id },
+      include: {
+        referrals: {
+          select: {
+            id: true,
+          },
+        },
+        referredBy: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+          },
+        },
+      },
+    });
+
+    return {
+      referralCount: user?.referrals.length ?? 0,
+      referredBy: user?.referredBy
+        ? {
+            id: user.referredBy.id,
+            name: user.referredBy.name,
+            emailPrefix: user.referredBy.email?.split("@")[0] ?? "",
+          }
+        : null,
+    };
   }),
 });

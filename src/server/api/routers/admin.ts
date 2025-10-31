@@ -25,6 +25,18 @@ export const adminRouter = createTRPCRouter({
               name: true,
             },
           },
+          referrals: {
+            select: {
+              id: true,
+            },
+          },
+          referredBy: {
+            select: {
+              id: true,
+              name: true,
+              email: true,
+            },
+          },
         },
       });
 

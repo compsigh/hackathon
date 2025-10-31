@@ -6,6 +6,7 @@ import { useEffect, useEffectEvent, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import confetti from "canvas-confetti";
+import Fuse from "fuse.js";
 import { api } from "~/trpc/react";
 import { Navbar } from "../_components/navbar";
 import { ProtoMono } from "../fonts";
@@ -41,6 +42,20 @@ export default function ParticipantPage() {
       },
     });
 
+  const updateReferral = api.participant.updateReferral.useMutation({
+    onSuccess: () => {
+      void utils.participant.getCurrentUser.invalidate();
+      void utils.participant.getReferralStats.invalidate();
+    },
+  });
+
+  const { data: referralStats } = api.participant.getReferralStats.useQuery(
+    undefined,
+    {
+      enabled: status === "authenticated",
+    },
+  );
+
   const [showSuccess, setShowSuccess] = useState(false);
   const [copied, setCopied] = useState(false);
   const [hasShareAPI, setHasShareAPI] = useState(false);
@@ -58,6 +73,7 @@ export default function ParticipantPage() {
       | "CO2025"
       | "MASTERS"
       | null,
+    referralId: null as string | null,
   });
 
   const [name, setName] = useState("");
@@ -71,6 +87,27 @@ export default function ParticipantPage() {
       | "MASTERS"
       | null,
   );
+  const [referralSearchQuery, setReferralSearchQuery] = useState("");
+  const [selectedReferrer, setSelectedReferrer] = useState<{
+    id: string;
+    name: string | null;
+    emailPrefix: string;
+  } | null>(null);
+  const [referralId, setReferralId] = useState<string | null>(null);
+  const [showReferralDropdown, setShowReferralDropdown] = useState(false);
+  const [selectedResultIndex, setSelectedResultIndex] = useState(0);
+  const [showGraduatingClassDropdown, setShowGraduatingClassDropdown] = useState(false);
+  const [selectedGraduatingClassIndex, setSelectedGraduatingClassIndex] = useState(0);
+  const referralInputRef = useRef<HTMLInputElement>(null);
+  const referralDropdownRef = useRef<HTMLDivElement>(null);
+  const graduatingClassDropdownRef = useRef<HTMLDivElement>(null);
+  const selectedResultRef = useRef<HTMLButtonElement>(null);
+  const selectedGraduatingClassRef = useRef<HTMLButtonElement>(null);
+
+  // Get all users for client-side search
+  const { data: allUsers } = api.participant.getAllUsers.useQuery(undefined, {
+    enabled: status === "authenticated",
+  });
 
   useEffect(() => {
     if (user) {
@@ -84,14 +121,121 @@ export default function ParticipantPage() {
           | "CO2025"
           | "MASTERS"
           | null,
+        referralId: user.referralId ?? null,
       };
       setTimeout(() => {
         setOriginalValues(newOriginalValues);
         setName(newOriginalValues.name);
         setGraduatingClass(newOriginalValues.graduatingClass);
+        setReferralId(newOriginalValues.referralId);
       }, 0);
     }
   }, [user]);
+
+  // Initialize selected referrer from referralId
+  useEffect(() => {
+    if (referralId && allUsers) {
+      const referrerUser = allUsers.find((u) => u.id === referralId);
+      if (referrerUser) {
+        setSelectedReferrer({
+          id: referrerUser.id,
+          name: referrerUser.name,
+          emailPrefix: referrerUser.emailPrefix,
+        });
+      }
+    } else {
+      setSelectedReferrer(null);
+    }
+  }, [referralId, allUsers]);
+
+  // Client-side search using fuse.js
+  const searchResults = useMemo(() => {
+    if (!allUsers || !showReferralDropdown) return [];
+
+    const searchableUsers = allUsers.map((user) => ({
+      ...user,
+      searchableText: `${user.name ?? ""} ${user.emailPrefix}`.toLowerCase(),
+    }));
+
+    // If query is empty, return all users sorted by name
+    if (!referralSearchQuery || referralSearchQuery.trim().length === 0) {
+      return searchableUsers.sort((a, b) => {
+        const nameA = a.name ?? "";
+        const nameB = b.name ?? "";
+        return nameA.localeCompare(nameB);
+      });
+    }
+
+    // Use fuse.js for fuzzy search
+    const fuse = new Fuse(searchableUsers, {
+      keys: [
+        { name: "name", weight: 0.6 },
+        { name: "emailPrefix", weight: 0.4 },
+        { name: "searchableText", weight: 0.3 },
+      ],
+      threshold: 0.4,
+      includeScore: true,
+      minMatchCharLength: 1,
+    });
+
+    const results = fuse.search(referralSearchQuery.trim());
+    return results.slice(0, 10).map((result) => result.item);
+  }, [allUsers, referralSearchQuery, showReferralDropdown]);
+
+  // Focus input when dropdown opens
+  useEffect(() => {
+    if (showReferralDropdown && referralInputRef.current) {
+      referralInputRef.current.focus();
+    }
+  }, [showReferralDropdown]);
+
+  // Scroll selected graduating class item into view when navigating with keyboard
+  useEffect(() => {
+    if (selectedGraduatingClassRef.current) {
+      selectedGraduatingClassRef.current.scrollIntoView({
+        block: "nearest",
+        behavior: "smooth",
+      });
+    }
+  }, [selectedGraduatingClassIndex]);
+
+  // Scroll selected item into view when navigating with keyboard
+  useEffect(() => {
+    if (selectedResultRef.current) {
+      selectedResultRef.current.scrollIntoView({
+        block: "nearest",
+        behavior: "smooth",
+      });
+    }
+  }, [selectedResultIndex]);
+
+  // Handle click outside to close dropdowns
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      // Referral dropdown
+      if (
+        referralInputRef.current &&
+        !referralInputRef.current.contains(event.target as Node) &&
+        referralDropdownRef.current &&
+        !referralDropdownRef.current.contains(event.target as Node)
+      ) {
+        setShowReferralDropdown(false);
+      }
+      
+      // Graduating class dropdown
+      if (
+        graduatingClassDropdownRef.current &&
+        !graduatingClassDropdownRef.current.contains(event.target as Node)
+      ) {
+        setShowGraduatingClassDropdown(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   useEffect(() => {
     // Check if Web Share API is available
@@ -149,9 +293,10 @@ export default function ParticipantPage() {
   const hasChanges = useMemo(() => {
     return (
       name !== originalValues.name ||
-      graduatingClass !== originalValues.graduatingClass
+      graduatingClass !== originalValues.graduatingClass ||
+      referralId !== originalValues.referralId
     );
-  }, [name, graduatingClass, originalValues]);
+  }, [name, graduatingClass, referralId, originalValues]);
 
   // Handle save
   const handleSave = async () => {
@@ -167,6 +312,9 @@ export default function ParticipantPage() {
           promises.push(updateGraduatingClass.mutateAsync({ graduatingClass }));
         }
       }
+      if (referralId !== originalValues.referralId) {
+        promises.push(updateReferral.mutateAsync({ referralId }));
+      }
 
       await Promise.all(promises);
 
@@ -174,6 +322,7 @@ export default function ParticipantPage() {
       setOriginalValues({
         name,
         graduatingClass,
+        referralId,
       });
 
       // Show success message
@@ -206,6 +355,106 @@ export default function ParticipantPage() {
   const handleReset = () => {
     setName(originalValues.name);
     setGraduatingClass(originalValues.graduatingClass);
+    setReferralId(originalValues.referralId);
+  };
+
+  // Handle graduating class selection
+  const handleSelectGraduatingClass = (value: 
+    | "CO2029"
+    | "CO2028"
+    | "CO2027"
+    | "CO2026"
+    | "CO2025"
+    | "MASTERS"
+  ) => {
+    setGraduatingClass(value);
+    setShowGraduatingClassDropdown(false);
+  };
+
+  // Handle graduating class keyboard navigation
+  const handleGraduatingClassKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
+    const options: Array<"CO2029" | "CO2028" | "CO2027" | "CO2026" | "CO2025" | "MASTERS"> = [
+      "CO2029",
+      "CO2028",
+      "CO2027",
+      "CO2026",
+      "CO2025",
+      "MASTERS",
+    ];
+
+    if (!showGraduatingClassDropdown) {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        setShowGraduatingClassDropdown(true);
+      }
+      return;
+    }
+
+    if (e.key === "Enter") {
+      e.preventDefault();
+      const selectedOption = options[selectedGraduatingClassIndex];
+      if (selectedOption) {
+        handleSelectGraduatingClass(selectedOption);
+      }
+    } else if (e.key === "ArrowDown") {
+      e.preventDefault();
+      setSelectedGraduatingClassIndex((prev) =>
+        prev < options.length - 1 ? prev + 1 : prev,
+      );
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      setSelectedGraduatingClassIndex((prev) => (prev > 0 ? prev - 1 : 0));
+    } else if (e.key === "Escape") {
+      setShowGraduatingClassDropdown(false);
+    }
+  };
+
+  // Handle referrer selection
+  const handleSelectReferrer = (referrer: {
+    id: string;
+    name: string | null;
+    emailPrefix: string;
+  }) => {
+    setSelectedReferrer(referrer);
+    setReferralId(referrer.id);
+    setReferralSearchQuery("");
+    setShowReferralDropdown(false);
+  };
+
+  // Handle Enter key to select top result
+  const handleReferralKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (!showReferralDropdown || !searchResults || searchResults.length === 0) {
+      return;
+    }
+
+    if (e.key === "Enter") {
+      e.preventDefault();
+      const topResult = searchResults[selectedResultIndex];
+      if (topResult) {
+        handleSelectReferrer({
+          id: topResult.id,
+          name: topResult.name,
+          emailPrefix: topResult.emailPrefix,
+        });
+      }
+    } else if (e.key === "ArrowDown") {
+      e.preventDefault();
+      setSelectedResultIndex((prev) =>
+        prev < searchResults.length - 1 ? prev + 1 : prev,
+      );
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      setSelectedResultIndex((prev) => (prev > 0 ? prev - 1 : 0));
+    } else if (e.key === "Escape") {
+      setShowReferralDropdown(false);
+    }
+  };
+
+  // Handle clear referrer
+  const handleClearReferrer = () => {
+    setSelectedReferrer(null);
+    setReferralId(null);
+    setReferralSearchQuery("");
   };
 
   // Handle share
@@ -421,81 +670,125 @@ export default function ParticipantPage() {
           {/* Name Field */}
           <div>
             <label className="mb-2 block text-sm font-medium">Name</label>
-            <input
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className={`w-full rounded-lg border border-[var(--color-light-30)] bg-[var(--color-dark)] px-4 py-2 text-[var(--color-light)] focus:border-[var(--color-compsigh)] focus:outline-none ${ProtoMono.className}`}
-              placeholder="Enter your name"
-            />
+            <div className="relative">
+              <input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className={`w-full rounded-lg border ${
+                  name !== originalValues.name
+                    ? "border-red-500"
+                    : "border-[var(--color-light-30)]"
+                } bg-[var(--color-dark)] px-4 py-2 pr-40 text-[var(--color-compsigh)] focus:border-[var(--color-compsigh)] focus:outline-none ${ProtoMono.className}`}
+                placeholder="Enter your name"
+              />
+              {name !== originalValues.name && (
+                <span className="absolute right-2 top-1/2 -translate-y-1/2 rounded border border-red-500 bg-red-500/20 px-2 py-0.5 text-xs font-medium text-red-400 pointer-events-none">
+                  Unsaved changes
+                </span>
+              )}
+            </div>
           </div>
 
           {/* Graduating Class Field */}
-          <div>
+          <div className="relative">
             <label className="mb-2 block text-sm font-medium">
               Graduating Class
             </label>
-            <select
-              value={graduatingClass ?? ""}
-              onChange={(e) => {
-                const value = e.target.value;
-                setGraduatingClass(
-                  value === "" ? null : (value as
-                    | "CO2029"
-                    | "CO2028"
-                    | "CO2027"
-                    | "CO2026"
-                    | "CO2025"
-                    | "MASTERS"),
-                );
-              }}
-              className={`w-full cursor-pointer rounded-lg border border-[var(--color-light-30)] bg-[var(--color-dark)] px-4 py-2 text-[var(--color-light)] focus:border-[var(--color-compsigh)] focus:outline-none ${ProtoMono.className}`}
-              style={{ colorScheme: "dark" }}
-            >
-              <option
-                value=""
-                disabled
-                className="bg-[var(--color-dark)] text-[var(--color-light-50)]"
-              >
-                Select a class
-              </option>
-              <option
-                value="CO2029"
-                className="bg-[var(--color-dark)] text-[var(--color-light)]"
-              >
-                2029
-              </option>
-              <option
-                value="CO2028"
-                className="bg-[var(--color-dark)] text-[var(--color-light)]"
-              >
-                2028
-              </option>
-              <option
-                value="CO2027"
-                className="bg-[var(--color-dark)] text-[var(--color-light)]"
-              >
-                2027
-              </option>
-              <option
-                value="CO2026"
-                className="bg-[var(--color-dark)] text-[var(--color-light)]"
-              >
-                2026
-              </option>
-              <option
-                value="CO2025"
-                className="bg-[var(--color-dark)] text-[var(--color-light)]"
-              >
-                2025
-              </option>
-              <option
-                value="MASTERS"
-                className="bg-[var(--color-dark)] text-[var(--color-light)]"
-              >
-                Masters
-              </option>
-            </select>
+            <div className="flex gap-2">
+              {graduatingClass && !showGraduatingClassDropdown ? (
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setShowGraduatingClassDropdown(true);
+                    // Find current index
+                    const options: Array<"CO2029" | "CO2028" | "CO2027" | "CO2026" | "CO2025" | "MASTERS"> = [
+                      "CO2029",
+                      "CO2028",
+                      "CO2027",
+                      "CO2026",
+                      "CO2025",
+                      "MASTERS",
+                    ];
+                    const currentIndex = options.indexOf(graduatingClass);
+                    setSelectedGraduatingClassIndex(currentIndex >= 0 ? currentIndex : 0);
+                  }}
+                  className={`relative flex flex-1 cursor-pointer items-center gap-2 rounded-lg border ${
+                    graduatingClass !== originalValues.graduatingClass
+                      ? "border-red-500"
+                      : "border-[var(--color-light-30)]"
+                  } bg-[var(--color-dark)] px-4 py-2 text-left hover:bg-[var(--color-light-10)]`}
+                  onKeyDown={handleGraduatingClassKeyDown}
+                >
+                  <span className={`flex-1 ${ProtoMono.className}`}>
+                    <span className="text-[var(--color-compsigh)]">
+                      {graduatingClass === "MASTERS" ? "Masters" : graduatingClass.slice(2)}
+                    </span>
+                  </span>
+                  {graduatingClass !== originalValues.graduatingClass && (
+                    <span className="rounded border border-red-500 bg-red-500/20 px-2 py-0.5 text-xs font-medium text-red-400">
+                      Unsaved changes
+                    </span>
+                  )}
+                </button>
+              ) : (
+                <div className="relative flex-1" ref={graduatingClassDropdownRef}>
+                  <button
+                    type="button"
+                    onClick={() => setShowGraduatingClassDropdown(true)}
+                    onFocus={() => setShowGraduatingClassDropdown(true)}
+                    onKeyDown={handleGraduatingClassKeyDown}
+                    className={`w-full rounded-lg border ${
+                      graduatingClass !== originalValues.graduatingClass
+                        ? "border-red-500"
+                        : "border-[var(--color-light-30)]"
+                    } bg-[var(--color-dark)] px-4 py-2 pr-40 text-left text-[var(--color-light)] focus:border-[var(--color-compsigh)] focus:outline-none ${ProtoMono.className}`}
+                  >
+                    {graduatingClass ? (
+                      graduatingClass === "MASTERS" ? "Masters" : graduatingClass.slice(2)
+                    ) : (
+                      <span className="text-[var(--color-light-50)]">Select a class</span>
+                    )}
+                  </button>
+                  {graduatingClass !== originalValues.graduatingClass && !showGraduatingClassDropdown && (
+                    <span className="absolute right-2 top-1/2 -translate-y-1/2 rounded border border-red-500 bg-red-500/20 px-2 py-0.5 text-xs font-medium text-red-400 pointer-events-none">
+                      Unsaved changes
+                    </span>
+                  )}
+                  {showGraduatingClassDropdown && (
+                    <div className="absolute left-0 top-full z-10 mt-1 max-h-60 w-full overflow-auto rounded-lg border border-[var(--color-light-30)] bg-[var(--color-dark)] shadow-lg">
+                      {[
+                        { value: "CO2029" as const, label: "2029" },
+                        { value: "CO2028" as const, label: "2028" },
+                        { value: "CO2027" as const, label: "2027" },
+                        { value: "CO2026" as const, label: "2026" },
+                        { value: "CO2025" as const, label: "2025" },
+                        { value: "MASTERS" as const, label: "Masters" },
+                      ].map((option, index) => (
+                        <button
+                          key={option.value}
+                          ref={index === selectedGraduatingClassIndex ? selectedGraduatingClassRef : null}
+                          type="button"
+                          onClick={() => handleSelectGraduatingClass(option.value)}
+                          className={`w-full px-4 py-2 text-left hover:bg-[var(--color-light-10)] ${ProtoMono.className} ${
+                            index === selectedGraduatingClassIndex
+                              ? "bg-[var(--color-light-10)]"
+                              : ""
+                          } ${
+                            graduatingClass === option.value
+                              ? "text-[var(--color-compsigh)]"
+                              : "text-[var(--color-light)]"
+                          }`}
+                        >
+                          {option.label}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
           </div>
 
           {/* Email Display (read-only) */}
@@ -507,6 +800,112 @@ export default function ParticipantPage() {
               disabled
               className={`w-full cursor-not-allowed rounded-lg border border-[var(--color-light-30)] bg-[var(--color-dark)] px-4 py-2 text-[var(--color-light-50)] ${ProtoMono.className}`}
             />
+          </div>
+
+          {/* Who Referred You Field */}
+          <div className="relative">
+            <label className="mb-2 block text-sm font-medium">
+              Who referred you?
+            </label>
+            <div className="flex gap-2">
+              {selectedReferrer && !showReferralDropdown ? (
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setShowReferralDropdown(true);
+                    setReferralSearchQuery("");
+                    // Use requestAnimationFrame to ensure DOM is updated before focusing
+                    requestAnimationFrame(() => {
+                      referralInputRef.current?.focus();
+                      referralInputRef.current?.select();
+                    });
+                  }}
+                  className={`relative flex flex-1 cursor-pointer items-center gap-2 rounded-lg border ${
+                    referralId !== originalValues.referralId
+                      ? "border-red-500"
+                      : "border-[var(--color-light-30)]"
+                  } bg-[var(--color-dark)] px-4 py-2 text-left hover:bg-[var(--color-light-10)]`}
+                >
+                  <span className={`flex-1 ${ProtoMono.className}`}>
+                    <span className="text-[var(--color-compsigh)]">{selectedReferrer.name ?? "—"}</span>{" "}
+                    <span className="text-[var(--color-light-50)]">{selectedReferrer.emailPrefix}</span>
+                  </span>
+                  {referralId !== originalValues.referralId && (
+                    <span className="rounded border border-red-500 bg-red-500/20 px-2 py-0.5 text-xs font-medium text-red-400">
+                      Unsaved changes
+                    </span>
+                  )}
+                </button>
+              ) : (
+                <>
+                  <div className="relative flex-1">
+                    <input
+                      ref={referralInputRef}
+                      type="text"
+                      value={referralSearchQuery}
+                      onChange={(e) => {
+                        setReferralSearchQuery(e.target.value);
+                        setShowReferralDropdown(true);
+                      }}
+                      onFocus={() => {
+                        setShowReferralDropdown(true);
+                      }}
+                      onKeyDown={handleReferralKeyDown}
+                      placeholder="Search by name or email..."
+                      className={`w-full rounded-lg border ${
+                        referralId !== originalValues.referralId
+                          ? "border-red-500"
+                          : "border-[var(--color-light-30)]"
+                      } bg-[var(--color-dark)] px-4 py-2 pr-40 text-[var(--color-light)] focus:border-[var(--color-compsigh)] focus:outline-none ${ProtoMono.className}`}
+                    />
+                    {referralId !== originalValues.referralId && !showReferralDropdown && (
+                      <span className="absolute right-2 top-1/2 -translate-y-1/2 rounded border border-red-500 bg-red-500/20 px-2 py-0.5 text-xs font-medium text-red-400 pointer-events-none">
+                        Unsaved changes
+                      </span>
+                    )}
+                  </div>
+                  {showReferralDropdown &&
+                    searchResults &&
+                    searchResults.length > 0 && (
+                      <div
+                        ref={referralDropdownRef}
+                        className="absolute left-0 top-full z-10 mt-1 max-h-60 w-full overflow-auto rounded-lg border border-[var(--color-light-30)] bg-[var(--color-dark)] shadow-lg"
+                      >
+                        {searchResults.map((result, index) => (
+                          <button
+                            key={result.id}
+                            ref={index === selectedResultIndex ? selectedResultRef : null}
+                            type="button"
+                            onClick={() =>
+                              handleSelectReferrer({
+                                id: result.id,
+                                name: result.name,
+                                emailPrefix: result.emailPrefix,
+                              })
+                            }
+                            className={`w-full px-4 py-2 text-left hover:bg-[var(--color-light-10)] ${ProtoMono.className} ${
+                              index === selectedResultIndex
+                                ? "bg-[var(--color-light-10)]"
+                                : ""
+                            }`}
+                          >
+                            <span className={result.id === referralId ? "text-[var(--color-compsigh)]" : "text-[var(--color-light)]"}>
+                              {result.name ?? "—"}
+                            </span>{" "}
+                            <span className="text-[var(--color-light-50)]">{result.emailPrefix}</span>
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                </>
+              )}
+            </div>
+            {referralStats && referralStats.referralCount > 0 && (
+              <p className="mt-2 text-sm text-[var(--color-light-50)]">
+                {referralStats.referralCount} {referralStats.referralCount === 1 ? "person is" : "people are"} referring you
+              </p>
+            )}
           </div>
 
           {/* Action Buttons */}

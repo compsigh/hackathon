@@ -102,6 +102,12 @@ export default function AdminPage() {
                     <th className={`px-4 py-3 text-left text-sm font-medium text-[var(--color-light)] ${ProtoMono.className}`}>
                       Attended
                     </th>
+                    <th className={`px-4 py-3 text-left text-sm font-medium text-[var(--color-light)] ${ProtoMono.className}`}>
+                      Referrals
+                    </th>
+                    <th className={`px-4 py-3 text-left text-sm font-medium text-[var(--color-light)] ${ProtoMono.className}`}>
+                      Referred By
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -140,6 +146,16 @@ export default function AdminPage() {
                         >
                           {user.attended ? "Yes" : "No"}
                         </span>
+                      </td>
+                      <td className={`px-4 py-3 text-[var(--color-light)] ${ProtoMono.className}`}>
+                        {user.referrals?.length ?? 0}
+                      </td>
+                      <td className={`px-4 py-3 text-[var(--color-light)] ${ProtoMono.className}`}>
+                        {user.referredBy
+                          ? `${user.referredBy.name ?? "—"} (${
+                              user.referredBy.email?.split("@")[0] ?? "—"
+                            })`
+                          : "—"}
                       </td>
                     </tr>
                   ))}
