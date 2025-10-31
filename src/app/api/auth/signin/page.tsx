@@ -17,12 +17,6 @@ function SignInContent() {
 
   return (
     <AuthLayout>
-      {/* Title */}
-      <h1 className="mb-6 text-center text-4xl font-bold text-[var(--color-light)]">
-        Sign In to Register
-      </h1>
-
-      {/* Error Message */}
       {error === "AccessDenied" && (
         <div className="mb-6 rounded-lg border-2 border-red-500 bg-red-500/10 p-4">
           <p className="text-red-400">
@@ -31,21 +25,6 @@ function SignInContent() {
         </div>
       )}
 
-      {/* Instructions */}
-      <div className="mb-8 text-left">
-        <p className="mb-4 text-lg text-[var(--color-light)]">
-          To register for DEPLOY/25, please sign in with your USFCA Google
-          account.
-        </p>
-        <div className="rounded-lg border-2 border-[var(--color-compsigh)] bg-[var(--color-compsigh)]/10 p-4">
-          <p className="text-sm text-[var(--color-light-50)]">
-            <strong className="text-[var(--color-compsigh)]">Note:</strong> Only
-            @usfca.edu email addresses are accepted.
-          </p>
-        </div>
-      </div>
-
-      {/* Sign In Button */}
       <button
         onClick={handleSignIn}
         className="w-full cursor-pointer rounded-xl border-2 border-[var(--color-compsigh)] bg-[var(--color-dark)] px-8 py-4 text-xl font-bold text-[var(--color-light)] transition-colors [text-shadow:0_0_10px_var(--color-compsigh-60)] hover:bg-[var(--color-compsigh)] hover:text-[var(--color-dark)]"

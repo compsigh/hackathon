@@ -6,7 +6,6 @@
   --font-tronica-mono: var(--font-tronica-mono);
 }
 
-/* Raw colors - no theming */
 :root {
   --color-dark:        hsla(38deg, 10%, 2%, 1.0);
   --color-dark-10:     hsla(38deg, 10%, 2%, 0.1);
@@ -19,19 +18,16 @@
   --color-light-30:    hsla(38deg, 100%, 90%, 0.3);
 }
 
-/* Apply colors and font to body */
 body {
   background-color: var(--color-dark);
   color: var(--color-light);
   font-family: var(--font-ia-writer-quattro), ui-sans-serif, system-ui, sans-serif;
 }
 
-/* Offset for navigation */
 section[id] {
   scroll-margin-top: 2rem;
 }
 
-/* Custom fade animation for blinking cursor */
 @keyframes fade {
   0% {
     opacity: 1;
@@ -44,7 +40,6 @@ section[id] {
   }
 }
 
-/* Accordion animations */
 @keyframes accordion-down {
   from {
     height: 0;

@@ -55,6 +55,8 @@ model User {
     graduatingClass GraduatingClass?
     attended        Boolean          @default(false)
     teamId          String?
+    hasVisitedParticipantPage Boolean @default(false)
+    referralId     String?           // ID of the user who referred this user
     
     // Relations
     accounts      Account[]
@@ -62,6 +64,8 @@ model User {
     team          Team?              @relation(fields: [teamId], references: [id])
     sentInvites   Invite[]          @relation("InviteSender")
     receivedInvites Invite[]        @relation("InviteReceiver")
+    referredBy    User?             @relation("UserReferral", fields: [referralId], references: [id], onDelete: SetNull)
+    referrals     User[]            @relation("UserReferral")
 }
 
 model AdminEmail {
