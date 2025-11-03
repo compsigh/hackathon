@@ -6,7 +6,6 @@ import { ProtoMono } from "./fonts";
 import { FAQAccordion } from "./_components/faq-accordion";
 import { Navbar } from "./_components/navbar";
 import { PhotoGrid } from "./_components/photo-grid";
-import { RegisteredCount } from "./_components/registered-count";
 import { RegisterButton } from "./_components/register-button";
 
 export default function Home() {
@@ -55,7 +54,6 @@ export default function Home() {
         <section id="register" className="mb-16">
           <div className="mx-auto max-w-4xl text-center">
             <RegisterButton />
-            <RegisteredCount />
           </div>
         </section>
 
