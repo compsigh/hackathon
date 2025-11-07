@@ -23,14 +23,14 @@ export function RegistrationNotice() {
 
   return (
     <>
-      <div className="mb-6 rounded-lg border-2 border-[var(--color-compsigh)] bg-[var(--color-compsigh)]/10 p-6">
-        <p className="text-lg text-[var(--color-light)]">
-          <strong className="text-[var(--color-compsigh)]">
-            Team registration will open on November 7th at 6pm.
+      <div className="mb-6 rounded-lg border-2 border-(--color-compsigh) bg-(--color-compsigh)/10 p-6">
+        <p className="text-lg text-(--color-light)">
+          <strong className="text-(--color-compsigh)">
+            Team registration will open tonight at 6pm.
           </strong>
         </p>
         <div className="mt-3 flex items-center justify-between gap-4">
-          <p className="text-lg text-[var(--color-light)]">
+          <p className="text-lg text-(--color-light)">
             Get your friends to register!
           </p>
           <button
@@ -38,8 +38,8 @@ export function RegistrationNotice() {
             onClick={handleShare}
             className={`flex items-center gap-2 rounded-lg border px-4 py-2 font-medium transition-all duration-200 ${
               copied
-                ? "border border-[var(--color-compsigh)] bg-[var(--color-compsigh)] text-black active:translate-y-0.5 active:shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)]"
-                : "border border-[var(--color-compsigh)] bg-[var(--black)] text-[var(--color-compsigh)] hover:bg-[var(--color-compsigh)] hover:text-[var(--color-light)] active:translate-y-0.5 active:shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)]"
+                ? "border border-(--color-compsigh) bg-(--color-compsigh) text-black active:translate-y-0.5 active:shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)]"
+                : "border border-(--color-compsigh) bg-(--black) text-(--color-compsigh) hover:bg-(--color-compsigh) hover:text-(--color-light) active:translate-y-0.5 active:shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)]"
             }`}
           >
             <svg
@@ -61,7 +61,7 @@ export function RegistrationNotice() {
         <p className="mt-3">
           <Link
             href="/agenda"
-            className="text-lg text-[var(--color-compsigh)] hover:underline hover:decoration-[var(--color-compsigh)]"
+            className="text-lg text-(--color-compsigh) hover:underline hover:decoration-(--color-compsigh)"
           >
             View the agenda →
           </Link>

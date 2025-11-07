@@ -16,8 +16,8 @@ export function NameField({ value, onChange, hasChanges }: NameFieldProps) {
           value={value}
           onChange={(e) => onChange(e.target.value)}
           className={`w-full rounded-lg border ${
-            hasChanges ? "border-red-500" : "border-[var(--color-light-30)]"
-          } bg-[var(--color-dark)] px-4 py-2 pr-40 text-[var(--color-compsigh)] focus:border-[var(--color-compsigh)] focus:outline-none ${ProtoMono.className}`}
+            hasChanges ? "border-red-500" : "border-(--color-light-30)"
+          } bg-(--color-dark) px-4 py-2 pr-40 text-(--color-compsigh) focus:border-(--color-compsigh) focus:outline-none ${ProtoMono.className}`}
           placeholder="Enter your name"
         />
         {hasChanges && (

@@ -31,7 +31,7 @@ export function LogoBrand({ href = "/", target, rel }: LogoBrandProps) {
           className={`text-xl tracking-tight [text-shadow:0_0_10px_var(--color-compsigh-60)] sm:text-2xl ${ProtoMono.className}`}
         >
           <span className="animate-[fade_2s_linear_infinite]">►</span>DEPLOY/
-          <span className="text-[var(--color-compsigh)]">25</span>
+          <span className="text-(--color-compsigh)">25</span>
         </span>
       </LinkComponent>
     </div>

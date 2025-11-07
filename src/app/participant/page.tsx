@@ -14,6 +14,7 @@ import { ActionButtons } from "../_components/action-buttons";
 import { SuccessMessage } from "../_components/success-message";
 import { RegistrationNotice } from "../_components/registration-notice";
 import { AdminNotice } from "../_components/admin-notice";
+import { EventNotice } from "../_components/event-notice";
 import { useConfetti } from "../_components/hooks/use-confetti";
 import type { GraduatingClass } from "../_components/types";
 
@@ -213,6 +214,8 @@ export default function ParticipantPage() {
       <LogoBrand />
       <div className="container mx-auto max-w-2xl px-4 pt-28 pb-8 sm:pt-20">
         <h1 className="mb-8 text-4xl font-bold">Participant Dashboard</h1>
+
+        <EventNotice />
 
         <RegistrationNotice />
 

@@ -15,7 +15,7 @@ export function Navbar() {
         <div className="flex h-10 items-center">
           <button
             onClick={() => void signOut({ callbackUrl: "/" })}
-            className="cursor-pointer bg-transparent font-sans text-[var(--color-compsigh)] hover:underline hover:decoration-[var(--color-compsigh)]"
+            className="cursor-pointer bg-transparent font-sans text-(--color-compsigh) hover:underline hover:decoration-(--color-compsigh) [text-shadow:0_0_10px_var(--color-compsigh-60)]"
           >
             Logout
           </button>

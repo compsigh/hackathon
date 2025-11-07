@@ -7,6 +7,7 @@ import { FAQAccordion } from "./_components/faq-accordion";
 import { Navbar } from "./_components/navbar";
 import { PhotoGrid } from "./_components/photo-grid";
 import { RegisterButton } from "./_components/register-button";
+import { EventNotice } from "./_components/event-notice";
 
 export default function Home() {
   return (
@@ -18,7 +19,7 @@ export default function Home() {
           href="https://compsigh.club/"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex h-10 cursor-pointer items-center space-x-3 hover:underline hover:decoration-[var(--color-compsigh)]"
+          className="flex h-10 cursor-pointer items-center space-x-3 hover:underline hover:decoration-(--color-compsigh)"
         >
           <Image
             src="/compsigh-logo-glowing.png"
@@ -27,7 +28,7 @@ export default function Home() {
             height={100}
             className="h-full w-auto"
           />
-          <span className="font-tronica-mono text-xl text-[var(--color-compsigh)] [text-shadow:0_0_10px_var(--color-compsigh-60)] sm:text-2xl">
+          <span className="font-tronica-mono text-xl text-(--color-compsigh) [text-shadow:0_0_10px_var(--color-compsigh-60)] sm:text-2xl">
             compsigh
           </span>
         </a>
@@ -40,7 +41,7 @@ export default function Home() {
             className={`mb-4 text-5xl font-semibold tracking-tight [text-shadow:0_0_20px_var(--color-compsigh-60)] sm:text-6xl md:text-8xl ${ProtoMono.className}`}
           >
             <span className="animate-[fade_2s_linear_infinite]">►</span>DEPLOY/
-            <span className="text-[var(--color-compsigh)]">25</span>
+            <span className="text-(--color-compsigh)">25</span>
           </h1>
           <div className="mb-2 text-xl sm:text-2xl">
             University of San Francisco
@@ -48,6 +49,11 @@ export default function Home() {
           <div className="text-lg sm:text-xl">
             Friday, November 07 - Sunday, November 09
           </div>
+        </div>
+
+        {/* Event Notice */}
+        <div className="mx-auto mb-16 max-w-4xl">
+          <EventNotice />
         </div>
 
         {/* Register */}
@@ -64,7 +70,7 @@ export default function Home() {
               href="https://compsigh.club/"
               target="_blank"
               rel="noopener noreferrer"
-              className="font-tronica-mono cursor-pointer text-[var(--color-compsigh)] hover:underline hover:decoration-[var(--color-compsigh)]"
+              className="font-tronica-mono cursor-pointer text-(--color-compsigh) hover:underline hover:decoration-(--color-compsigh) [text-shadow:0_0_10px_var(--color-compsigh-60)]"
             >
               compsigh
             </a>
@@ -111,13 +117,13 @@ export default function Home() {
                 ></iframe>
               </div>
             </div>
-            <p className="mt-4 text-center text-sm text-[var(--color-light-50)]">
+            <p className="mt-4 text-center text-sm text-(--color-light-50)">
               This video was made by{" "}
               <a
                 href="https://hhkuo.org/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="cursor-pointer text-[var(--color-compsigh)] hover:underline hover:decoration-[var(--color-compsigh)]"
+                className="cursor-pointer text-(--color-compsigh) hover:underline hover:decoration-(--color-compsigh) [text-shadow:0_0_10px_var(--color-compsigh-60)]"
               >
                 Hendrick Kuo
               </a>{" "}
@@ -126,7 +132,7 @@ export default function Home() {
                 href="https://bloom.build/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="cursor-pointer text-[var(--color-compsigh)] hover:underline hover:decoration-[var(--color-compsigh)]"
+                className="cursor-pointer text-(--color-compsigh) hover:underline hover:decoration-(--color-compsigh) [text-shadow:0_0_10px_var(--color-compsigh-60)]"
               >
                 BLOOM
               </a>
@@ -135,20 +141,28 @@ export default function Home() {
         </section>
 
         {/* Footer */}
-        <footer className="pt-8 pb-4 text-center text-[var(--color-dark-30)]">
+        <footer className="pt-8 pb-4 text-center text-(--color-dark-30)">
           <p className="mb-2 text-lg">Good luck, have fun!</p>
           <div className="space-y-1 text-sm">
             <p>
               <Link
                 href="https://compsigh.club/docs/about"
-                className="cursor-pointer text-[var(--color-compsigh)] hover:underline hover:decoration-[var(--color-compsigh)]"
+                className="cursor-pointer text-(--color-compsigh) hover:underline hover:decoration-(--color-compsigh)"
               >
-                About compsigh
+                About
               </Link>{" "}
-              •{" "}
+              <a
+                href="https://compsigh.club/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-tronica-mono cursor-pointer text-(--color-compsigh) hover:underline hover:decoration-(--color-compsigh) [text-shadow:0_0_10px_var(--color-compsigh-60)]"
+              >
+                compsigh
+              </a>{" "}
+              <span className="text-(--color-light)">•</span>{" "}
               <Link
                 href="https://compsigh.club/docs/code-of-conduct"
-                className="cursor-pointer text-[var(--color-compsigh)] hover:underline hover:decoration-[var(--color-compsigh)]"
+                className="cursor-pointer text-(--color-compsigh) hover:underline hover:decoration-(--color-compsigh)"
               >
                 Code of Conduct
               </Link>

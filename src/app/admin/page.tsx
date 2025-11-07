@@ -58,22 +58,22 @@ export default function AdminPage() {
             className={`text-xl tracking-tight [text-shadow:0_0_10px_var(--color-compsigh-60)] sm:text-2xl ${ProtoMono.className}`}
           >
             <span className="animate-[fade_2s_linear_infinite]">►</span>DEPLOY/
-            <span className="text-[var(--color-compsigh)]">25</span>
+            <span className="text-(--color-compsigh)">25</span>
           </span>
         </Link>
       </div>
       <div className="container mx-auto max-w-2xl px-4 pt-28 pb-8 sm:pt-20">
         <h1 className="mb-8 text-4xl font-bold">Admin Dashboard</h1>
 
-        <div className="mb-6 rounded-lg border-2 border-[var(--color-compsigh)] p-4">
-          <p className="text-sm text-[var(--color-light)]">
-            <strong className="text-[var(--color-compsigh)]">
+        <div className="mb-6 rounded-lg border-2 border-(--color-compsigh) p-4">
+          <p className="text-sm text-(--color-light)">
+            <strong className="text-(--color-compsigh)">
               Participant View:
             </strong>{" "}
             Switch to participant view.{" "}
             <Link
               href="/participant"
-              className="font-medium text-[var(--color-compsigh)] hover:underline hover:decoration-[var(--color-compsigh)]"
+              className="font-medium text-(--color-compsigh) hover:underline hover:decoration-(--color-compsigh)"
             >
               Access participant panel →
             </Link>

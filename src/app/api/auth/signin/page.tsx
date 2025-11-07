@@ -27,7 +27,7 @@ function SignInContent() {
 
       <button
         onClick={handleSignIn}
-        className="w-full cursor-pointer rounded-xl border-2 border-[var(--color-compsigh)] bg-[var(--color-dark)] px-8 py-4 text-xl font-bold text-[var(--color-light)] transition-colors [text-shadow:0_0_10px_var(--color-compsigh-60)] hover:bg-[var(--color-compsigh)] hover:text-[var(--color-dark)]"
+        className="w-full cursor-pointer rounded-xl border-2 border-(--color-compsigh) bg-(--color-dark) px-8 py-4 text-xl font-bold text-(--color-light) transition-colors [text-shadow:0_0_10px_var(--color-compsigh-60)] hover:bg-(--color-compsigh) hover:text-(--color-dark)"
       >
         Sign in with Google
       </button>
@@ -41,7 +41,7 @@ export default function SignInPage() {
       fallback={
         <AuthLayout>
           <div className="text-center">
-            <h1 className="mb-4 text-2xl font-bold text-[var(--color-light)]">
+            <h1 className="mb-4 text-2xl font-bold text-(--color-light)">
               Loading...
             </h1>
           </div>

@@ -20,49 +20,49 @@ interface UsersTableProps {
 export function UsersTable({ users }: UsersTableProps) {
   if (users.length === 0) {
     return (
-      <div className="rounded-lg border border-[var(--color-light-30)] bg-[var(--color-dark)] p-6 text-center text-[var(--color-light-50)]">
+      <div className="rounded-lg border border-(--color-light-30) bg-(--color-dark) p-6 text-center text-(--color-light-50)">
         No users found.
       </div>
     );
   }
 
   return (
-    <div className="overflow-x-auto rounded-lg border border-[var(--color-light-30)] bg-[var(--color-dark)]">
+    <div className="overflow-x-auto rounded-lg border border-(--color-light-30) bg-(--color-dark)">
       <table className="w-full">
         <thead>
-          <tr className="border-b border-[var(--color-light-30)]">
+          <tr className="border-b border-(--color-light-30)">
             <th
-              className={`px-4 py-3 text-left text-sm font-medium text-[var(--color-light)] ${ProtoMono.className}`}
+              className={`px-4 py-3 text-left text-sm font-medium text-(--color-light) ${ProtoMono.className}`}
             >
               Name
             </th>
             <th
-              className={`px-4 py-3 text-left text-sm font-medium text-[var(--color-light)] ${ProtoMono.className}`}
+              className={`px-4 py-3 text-left text-sm font-medium text-(--color-light) ${ProtoMono.className}`}
             >
               Email
             </th>
             <th
-              className={`px-4 py-3 text-left text-sm font-medium text-[var(--color-light)] ${ProtoMono.className}`}
+              className={`px-4 py-3 text-left text-sm font-medium text-(--color-light) ${ProtoMono.className}`}
             >
               Graduating Class
             </th>
             <th
-              className={`px-4 py-3 text-left text-sm font-medium text-[var(--color-light)] ${ProtoMono.className}`}
+              className={`px-4 py-3 text-left text-sm font-medium text-(--color-light) ${ProtoMono.className}`}
             >
               Team
             </th>
             <th
-              className={`px-4 py-3 text-left text-sm font-medium text-[var(--color-light)] ${ProtoMono.className}`}
+              className={`px-4 py-3 text-left text-sm font-medium text-(--color-light) ${ProtoMono.className}`}
             >
               Attended
             </th>
             <th
-              className={`px-4 py-3 text-left text-sm font-medium text-[var(--color-light)] ${ProtoMono.className}`}
+              className={`px-4 py-3 text-left text-sm font-medium text-(--color-light) ${ProtoMono.className}`}
             >
               Referrals
             </th>
             <th
-              className={`px-4 py-3 text-left text-sm font-medium text-[var(--color-light)] ${ProtoMono.className}`}
+              className={`px-4 py-3 text-left text-sm font-medium text-(--color-light) ${ProtoMono.className}`}
             >
               Referred By
             </th>
@@ -74,26 +74,26 @@ export function UsersTable({ users }: UsersTableProps) {
               key={user.id}
               className={`${
                 index < users.length - 1
-                  ? "border-b border-[var(--color-light-30)]"
+                  ? "border-b border-(--color-light-30)"
                   : ""
               } ${
                 index % 2 === 0
-                  ? "bg-[var(--color-dark)]"
-                  : "bg-[var(--color-dark)]/50"
+                  ? "bg-(--color-dark)"
+                  : "bg-(--color-dark)/50"
               }`}
             >
               <td
-                className={`px-4 py-3 text-[var(--color-light)] ${ProtoMono.className}`}
+                className={`px-4 py-3 text-(--color-light) ${ProtoMono.className}`}
               >
                 {user.name ?? user.preferredName ?? "—"}
               </td>
               <td
-                className={`px-4 py-3 text-[var(--color-light)] ${ProtoMono.className}`}
+                className={`px-4 py-3 text-(--color-light) ${ProtoMono.className}`}
               >
                 {user.email ?? "—"}
               </td>
               <td
-                className={`px-4 py-3 text-[var(--color-light)] ${ProtoMono.className}`}
+                className={`px-4 py-3 text-(--color-light) ${ProtoMono.className}`}
               >
                 {formatGraduatingClass(
                   user.graduatingClass as
@@ -107,7 +107,7 @@ export function UsersTable({ users }: UsersTableProps) {
                 )}
               </td>
               <td
-                className={`px-4 py-3 text-[var(--color-light)] ${ProtoMono.className}`}
+                className={`px-4 py-3 text-(--color-light) ${ProtoMono.className}`}
               >
                 {user.team?.name ?? "—"}
               </td>
@@ -123,12 +123,12 @@ export function UsersTable({ users }: UsersTableProps) {
                 </span>
               </td>
               <td
-                className={`px-4 py-3 text-[var(--color-light)] ${ProtoMono.className}`}
+                className={`px-4 py-3 text-(--color-light) ${ProtoMono.className}`}
               >
                 {user.referrals?.length ?? 0}
               </td>
               <td
-                className={`px-4 py-3 text-[var(--color-light)] ${ProtoMono.className}`}
+                className={`px-4 py-3 text-(--color-light) ${ProtoMono.className}`}
               >
                 {user.referredBy
                   ? `${user.referredBy.name ?? "—"} (${

@@ -102,12 +102,12 @@ export function GraduatingClassField({
               setSelectedIndex(currentIndex >= 0 ? currentIndex : 0);
             }}
             className={`relative flex flex-1 cursor-pointer items-center gap-2 rounded-lg border ${
-              hasChanges ? "border-red-500" : "border-[var(--color-light-30)]"
-            } bg-[var(--color-dark)] px-4 py-2 text-left hover:bg-[var(--color-light-10)]`}
+              hasChanges ? "border-red-500" : "border-(--color-light-30)"
+            } bg-(--color-dark) px-4 py-2 text-left hover:bg-(--color-light-10)`}
             onKeyDown={handleKeyDown}
           >
             <span className={`flex-1 ${ProtoMono.className}`}>
-              <span className="text-[var(--color-compsigh)]">
+              <span className="text-(--color-compsigh)">
                 {formatGraduatingClass(value)}
               </span>
             </span>
@@ -141,13 +141,13 @@ export function GraduatingClassField({
               }}
               onKeyDown={handleKeyDown}
               className={`w-full rounded-lg border ${
-                hasChanges ? "border-red-500" : "border-[var(--color-light-30)]"
-              } bg-[var(--color-dark)] px-4 py-2 pr-40 text-left text-[var(--color-light)] focus:border-[var(--color-compsigh)] focus:outline-none ${ProtoMono.className}`}
+                hasChanges ? "border-red-500" : "border-(--color-light-30)"
+              } bg-(--color-dark) px-4 py-2 pr-40 text-left text-(--color-light) focus:border-(--color-compsigh) focus:outline-none ${ProtoMono.className}`}
             >
               {value ? (
                 formatGraduatingClass(value)
               ) : (
-                <span className="text-[var(--color-light-50)]">
+                <span className="text-(--color-light-50)">
                   Select a class
                 </span>
               )}
@@ -158,21 +158,21 @@ export function GraduatingClassField({
               </span>
             )}
             {showDropdown && (
-              <div className="absolute top-full left-0 z-10 mt-1 max-h-60 w-full overflow-auto rounded-lg border border-[var(--color-light-30)] bg-[var(--color-dark)] shadow-lg">
+              <div className="absolute top-full left-0 z-10 mt-1 max-h-60 w-full overflow-auto rounded-lg border border-(--color-light-30) bg-(--color-dark) shadow-lg">
                 {GRADUATING_CLASS_OPTIONS.map((option, index) => (
                   <button
                     key={option.value}
                     ref={index === selectedIndex ? selectedRef : null}
                     type="button"
                     onClick={() => handleSelect(option.value)}
-                    className={`w-full px-4 py-2 text-left hover:bg-[var(--color-light-10)] ${ProtoMono.className} ${
+                    className={`w-full px-4 py-2 text-left hover:bg-(--color-light-10) ${ProtoMono.className} ${
                       index === selectedIndex
-                        ? "bg-[var(--color-light-10)]"
+                        ? "bg-(--color-light-10)"
                         : ""
                     } ${
                       value === option.value
-                        ? "text-[var(--color-compsigh)]"
-                        : "text-[var(--color-light)]"
+                        ? "text-(--color-compsigh)"
+                        : "text-(--color-light)"
                     }`}
                   >
                     {option.label}
