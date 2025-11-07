@@ -153,14 +153,14 @@ export function ReferralField({
               });
             }}
             className={`relative flex flex-1 cursor-pointer items-center gap-2 rounded-lg border ${
-              hasChanges ? "border-red-500" : "border-[var(--color-light-30)]"
-            } bg-[var(--color-dark)] px-4 py-2 text-left hover:bg-[var(--color-light-10)]`}
+              hasChanges ? "border-red-500" : "border-(--color-light-30)"
+            } bg-(--color-dark) px-4 py-2 text-left hover:bg-(--color-light-10)`}
           >
             <span className={`flex-1 ${ProtoMono.className}`}>
-              <span className="text-[var(--color-compsigh)]">
+              <span className="text-(--color-compsigh)">
                 {selectedReferrer.name ?? "—"}
               </span>{" "}
-              <span className="text-[var(--color-light-50)]">
+              <span className="text-(--color-light-50)">
                 {selectedReferrer.emailPrefix}
               </span>
             </span>
@@ -189,8 +189,8 @@ export function ReferralField({
                 className={`w-full rounded-lg border ${
                   hasChanges
                     ? "border-red-500"
-                    : "border-[var(--color-light-30)]"
-                } bg-[var(--color-dark)] px-4 py-2 pr-40 text-[var(--color-light)] focus:border-[var(--color-compsigh)] focus:outline-none ${ProtoMono.className}`}
+                    : "border-(--color-light-30)"
+                } bg-(--color-dark) px-4 py-2 pr-40 text-(--color-light) focus:border-(--color-compsigh) focus:outline-none ${ProtoMono.className}`}
               />
               {hasChanges && !showDropdown && (
                 <span className="pointer-events-none absolute top-1/2 right-2 -translate-y-1/2 rounded border border-red-500 bg-red-500/20 px-2 py-0.5 text-xs font-medium text-red-400">
@@ -201,7 +201,7 @@ export function ReferralField({
             {showDropdown && searchResults && searchResults.length > 0 && (
               <div
                 ref={dropdownRef}
-                className="absolute top-full left-0 z-10 mt-1 max-h-60 w-full overflow-auto rounded-lg border border-[var(--color-light-30)] bg-[var(--color-dark)] shadow-lg"
+                className="absolute top-full left-0 z-10 mt-1 max-h-60 w-full overflow-auto rounded-lg border border-(--color-light-30) bg-(--color-dark) shadow-lg"
               >
                 {searchResults.map((result, index) => (
                   <button
@@ -209,22 +209,22 @@ export function ReferralField({
                     ref={index === selectedIndex ? selectedRef : null}
                     type="button"
                     onClick={() => handleSelect(result)}
-                    className={`w-full px-4 py-2 text-left hover:bg-[var(--color-light-10)] ${ProtoMono.className} ${
+                    className={`w-full px-4 py-2 text-left hover:bg-(--color-light-10) ${ProtoMono.className} ${
                       index === selectedIndex
-                        ? "bg-[var(--color-light-10)]"
+                        ? "bg-(--color-light-10)"
                         : ""
                     }`}
                   >
                     <span
                       className={
                         result.id === value
-                          ? "text-[var(--color-compsigh)]"
-                          : "text-[var(--color-light)]"
+                          ? "text-(--color-compsigh)"
+                          : "text-(--color-light)"
                       }
                     >
                       {result.name ?? "—"}
                     </span>{" "}
-                    <span className="text-[var(--color-light-50)]">
+                    <span className="text-(--color-light-50)">
                       {result.emailPrefix}
                     </span>
                   </button>
@@ -235,7 +235,7 @@ export function ReferralField({
         )}
       </div>
       {referralStats && referralStats.referralCount > 0 && (
-        <p className="mt-2 text-sm text-[var(--color-light-50)]">
+        <p className="mt-2 text-sm text-(--color-light-50)">
           {referralStats.referralCount}{" "}
           {referralStats.referralCount === 1 ? "person is" : "people are"}{" "}
           referring you

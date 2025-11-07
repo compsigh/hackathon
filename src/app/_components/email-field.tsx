@@ -12,7 +12,7 @@ export function EmailField({ value }: EmailFieldProps) {
         type="email"
         value={value}
         disabled
-        className={`w-full cursor-not-allowed rounded-lg border border-[var(--color-light-30)] bg-[var(--color-dark)] px-4 py-2 text-[var(--color-light-50)] ${ProtoMono.className}`}
+        className={`w-full cursor-not-allowed rounded-lg border border-(--color-light-30) bg-(--color-dark) px-4 py-2 text-(--color-light-50) ${ProtoMono.className}`}
       />
     </div>
   );

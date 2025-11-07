@@ -18,7 +18,7 @@ export function ActionButtons({
       <button
         onClick={onReset}
         disabled={!hasChanges}
-        className="flex-1 cursor-pointer rounded-lg border border-[hsla(38deg,100%,90%,0.5)] px-6 py-3 font-medium text-[var(--color-light)] hover:bg-[hsla(38deg,100%,90%,0.5)] disabled:cursor-not-allowed disabled:opacity-50"
+        className="flex-1 cursor-pointer rounded-lg border border-[hsla(38deg,100%,90%,0.5)] px-6 py-3 font-medium text-(--color-light) hover:bg-[hsla(38deg,100%,90%,0.5)] disabled:cursor-not-allowed disabled:opacity-50"
       >
         Reset
       </button>
@@ -26,7 +26,7 @@ export function ActionButtons({
         ref={saveButtonRef}
         onClick={onSave}
         disabled={!hasChanges || isSaving}
-        className="flex-1 cursor-pointer rounded-xl border-2 border-[var(--color-compsigh)] bg-[var(--black)] px-6 py-3 font-medium text-[var(--color-light)] hover:bg-[var(--color-compsigh)] hover:text-black disabled:cursor-not-allowed disabled:opacity-50"
+        className="flex-1 cursor-pointer rounded-xl border-2 border-(--color-compsigh) bg-(--black) px-6 py-3 font-medium text-(--color-light) hover:bg-(--color-compsigh) hover:text-black disabled:cursor-not-allowed disabled:opacity-50"
       >
         {isSaving ? "Saving..." : "Save"}
       </button>
