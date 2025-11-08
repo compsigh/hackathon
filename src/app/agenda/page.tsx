@@ -62,18 +62,9 @@ export default function AgendaPage() {
               </div>
               <div className="flex gap-4">
                 <span className="font-bold text-(--color-compsigh)">
-                  7:00 PM
-                </span>
-                <span>Team Registration Opens</span>
-              </div>
-              <div className="flex gap-4">
-                <span className="font-bold text-(--color-compsigh)">
                   8:00 PM
                 </span>
-                <span>Hacking Begins!</span>
-              </div>
-              <div className="mt-4 border-t border-(--color-light-30) pt-4 text-(--color-light-50)">
-                More events / meals announced soon
+                <span>Registration Due & Hacking Begins!</span>
               </div>
             </div>
           </div>
@@ -95,8 +86,11 @@ export default function AgendaPage() {
               </a>
             </p>
             <div className="space-y-3 text-lg">
-              <div className="text-(--color-light-50)">
-                More events / meals announced soon
+              <div className="flex gap-4">
+                <span className="font-bold text-(--color-compsigh)">
+                  12:00 PM
+                </span>
+                <span>Snacks, Drink, & Project Help</span>
               </div>
             </div>
           </div>
@@ -120,30 +114,27 @@ export default function AgendaPage() {
             <div className="space-y-3 text-lg">
               <div className="flex gap-4">
                 <span className="font-bold text-(--color-compsigh)">
-                  12:00 PM
+                  11:30 AM
                 </span>
-                <span>Project Submissions Close</span>
+                <span>Project & Team Formation Submission</span>
               </div>
               <div className="flex gap-4">
                 <span className="font-bold text-(--color-compsigh)">
                   12:00 PM
                 </span>
-                <span>Lunch</span>
+                <span>Sun Lunch - Bread n Chu</span>
               </div>
               <div className="flex gap-4">
                 <span className="font-bold text-(--color-compsigh)">
                   1:00 PM
                 </span>
-                <span>Demo Fair & Judging</span>
+                <span>Presentations & Judging</span>
               </div>
               <div className="flex gap-4">
                 <span className="font-bold text-(--color-compsigh)">
-                  4:00 PM
+                  3:00 PM
                 </span>
                 <span>Closing Ceremony & Awards</span>
-              </div>
-              <div className="mt-4 border-t border-(--color-light-30) pt-4 text-(--color-light-50)">
-                More events / meals announced soon
               </div>
             </div>
           </div>

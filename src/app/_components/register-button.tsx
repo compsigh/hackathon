@@ -26,7 +26,7 @@ export function RegisterButton() {
       }
       return "Go to Dashboard";
     }
-    return "Register Now";
+    return "Sign in";
   };
 
   return (
