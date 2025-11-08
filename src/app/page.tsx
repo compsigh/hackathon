@@ -7,7 +7,7 @@ import { FAQAccordion } from "./_components/faq-accordion";
 import { Navbar } from "./_components/navbar";
 import { PhotoGrid } from "./_components/photo-grid";
 import { RegisterButton } from "./_components/register-button";
-import { EventNotice } from "./_components/event-notice";
+import { RegistrationNotice } from "./_components/registration-notice";
 
 export default function Home() {
   return (
@@ -23,7 +23,7 @@ export default function Home() {
         >
           <Image
             src="/compsigh-logo-glowing.png"
-            alt="compsigh"
+            alt="compsigh"  
             width={100}
             height={100}
             className="h-full w-auto"
@@ -51,9 +51,9 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Event Notice */}
+        {/* Registration Notice */}
         <div className="mx-auto mb-16 max-w-4xl">
-          <EventNotice />
+          <RegistrationNotice />
         </div>
 
         {/* Register */}
