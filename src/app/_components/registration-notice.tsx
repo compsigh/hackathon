@@ -15,7 +15,13 @@ export function RegistrationNotice() {
           </Link>
         </p>
         <p className="mt-3 text-lg text-(--color-light)">
-          Team registration is now due sunday 11:30am. It will open soon {'<'}3
+          Project submission and team formation is due at 11:30am.{" "}
+          <Link
+            href="/team"
+            className="text-(--color-compsigh) underline decoration-(--color-compsigh) [text-shadow:0_0_10px_var(--color-compsigh-60)]"
+          >
+            Form your team here
+          </Link>
         </p>
         <p className="mt-3 text-lg text-(--color-light)">
           For any questions, you can{" "}
