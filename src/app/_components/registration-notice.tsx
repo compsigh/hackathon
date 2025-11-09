@@ -10,10 +10,10 @@ export function RegistrationNotice() {
           <p className="text-xl text-(--color-light)">
             <span className="text-(--color-compsigh)">→</span>{" "}
             <Link
-              href="https://docs.google.com/forms/d/e/1FAIpQLSetHrl405TjkSfp79pg7S1rakFXk0RwVX5b2yuBXFVayLmbZA/viewform?usp=header"
+              href="https://forms.gle/sT4ZcEGjQTHqwuEt8/"
               className="text-(--color-compsigh) underline decoration-(--color-compsigh) [text-shadow:0_0_10px_var(--color-compsigh-60)]"
             >
-              Project and team submission here
+              People's Choice Award submission here
             </Link>{" "}
             <span className="text-(--color-compsigh)">←</span>
           </p>
