@@ -3,16 +3,11 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ProtoMono } from "./fonts";
-import { FAQAccordion } from "./_components/faq-accordion";
-import { Navbar } from "./_components/navbar";
 import { PhotoGrid } from "./_components/photo-grid";
-import { RegisterButton } from "./_components/register-button";
-import { RegistrationNotice } from "./_components/registration-notice";
 
 export default function Home() {
   return (
     <main className="relative min-h-screen">
-      <Navbar />
       {/* Logo/Brand */}
       <div className="absolute top-0 left-0 z-10 p-4">
         <a
@@ -47,21 +42,31 @@ export default function Home() {
             University of San Francisco
           </div>
           <div className="text-lg sm:text-xl">
-            Friday, November 07 - Sunday, November 09
+            Friday, November 07 - Sunday, November 09 - 2025
           </div>
         </div>
 
         {/* Registration Notice */}
         <div className="mx-auto mb-16 max-w-4xl">
-          <RegistrationNotice />
-        </div>
-
-        {/* Register */}
-        <section id="register" className="mb-16">
-          <div className="mx-auto max-w-4xl text-center">
-            <RegisterButton />
+          <div className="mb-6 rounded-lg border-2 border-(--color-compsigh) bg-(--color-compsigh)/10 p-6">
+            <div className="mb-6 text-center">
+              <p className="text-xl text-(--color-light)">
+                Thank you for coming!
+              </p>
+            </div>
+            <p className="text-lg text-(--color-light) text-center">
+              Please add/view photos {" "}
+              <a
+                href="https://photos.app.goo.gl/Kx6CPXF56N8CoEZS7"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-(--color-compsigh) underline decoration-(--color-compsigh) [text-shadow:0_0_10px_var(--color-compsigh-60)]"
+              >
+                here
+              </a>
+            </p>
           </div>
-        </section>
+        </div>
 
         {/* Description */}
         <section className="mx-auto mb-16 max-w-4xl text-center">
@@ -80,16 +85,6 @@ export default function Home() {
           <p className="text-lg leading-relaxed sm:text-xl">
             A hype weekend for meeting cool people && building cool things.
           </p>
-        </section>
-
-        {/* FAQ */}
-        <section id="faq" className="mb-16">
-          <h2 className="mb-8 text-center text-3xl font-bold sm:text-4xl">
-            FAQ
-          </h2>
-          <div className="mx-auto max-w-4xl">
-            <FAQAccordion />
-          </div>
         </section>
 
         {/* Past Events */}

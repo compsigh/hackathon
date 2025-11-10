@@ -3,9 +3,7 @@ import "~/styles/globals.css";
 import { type Metadata } from "next";
 import localFont from "next/font/local";
 
-import { TRPCReactProvider } from "~/trpc/react";
 import { ProtoMono } from "./fonts";
-import { SessionProvider } from "./session-provider";
 
 const metadataBase = new URL("https://deploy.compsigh.club");
 
@@ -76,9 +74,7 @@ export default function RootLayout({
       className={`${ProtoMono.variable} ${iAWriterQuattro.variable} ${TronicaMono.variable}`}
     >
       <body>
-        <SessionProvider>
-          <TRPCReactProvider>{children}</TRPCReactProvider>
-        </SessionProvider>
+        {children}
       </body>
     </html>
   );
