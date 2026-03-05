@@ -1,11 +1,26 @@
-"use client";
+import { Link } from "react-router";
+import type { Route } from "./+types/_index";
+import { db } from "~/db/db.server";
+import { hackathonConfig } from "~/db/schema.server";
+import { CountdownTimer } from "~/components/countdown-timer";
+import { PhotoGrid } from "~/components/photo-grid";
 
-import Link from "next/link";
-import Image from "next/image";
-import { ProtoMono } from "./fonts";
-import { PhotoGrid } from "./_components/photo-grid";
+export async function loader({}: Route.LoaderArgs) {
+  const [config] = await db.select().from(hackathonConfig).limit(1);
+  return {
+    config: config
+      ? {
+          hackathonName: config.hackathonName,
+          state: config.state,
+          startTime: config.startTime?.toISOString() ?? null,
+        }
+      : null,
+  };
+}
 
-export default function Home() {
+export default function IndexPage({ loaderData }: Route.ComponentProps) {
+  const { config } = loaderData;
+
   return (
     <main className="relative min-h-screen">
       {/* Logo/Brand */}
@@ -16,11 +31,9 @@ export default function Home() {
           rel="noopener noreferrer"
           className="flex h-10 cursor-pointer items-center space-x-3 hover:underline hover:decoration-(--color-compsigh)"
         >
-          <Image
+          <img
             src="/compsigh-logo-glowing.png"
-            alt="compsigh"  
-            width={100}
-            height={100}
+            alt="compsigh"
             className="h-full w-auto"
           />
           <span className="font-tronica-mono text-xl text-(--color-compsigh) [text-shadow:0_0_10px_var(--color-compsigh-60)] sm:text-2xl">
@@ -32,11 +45,9 @@ export default function Home() {
       <div className="container mx-auto px-4 pt-20 pb-8">
         {/* Header */}
         <div className="mb-16 text-center">
-          <h1
-            className={`mb-4 text-5xl font-semibold tracking-tight [text-shadow:0_0_20px_var(--color-compsigh-60)] sm:text-6xl md:text-8xl ${ProtoMono.className}`}
-          >
-            <span className="animate-[fade_2s_linear_infinite]">►</span>DEPLOY/
-            <span className="text-(--color-compsigh)">25</span>
+          <h1 className="mb-4 font-proto-mono text-5xl font-semibold tracking-tight [text-shadow:0_0_20px_var(--color-compsigh-60)] sm:text-6xl md:text-8xl">
+            <span className="animate-[fade_2s_linear_infinite]">&#9654;</span>
+            DEPLOY/<span className="text-(--color-compsigh)">25</span>
           </h1>
           <div className="mb-2 text-xl sm:text-2xl">
             University of San Francisco
@@ -46,26 +57,40 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Registration Notice */}
+        {/* Countdown / Registration CTA */}
         <div className="mx-auto mb-16 max-w-4xl">
-          <div className="mb-6 rounded-lg border-2 border-(--color-compsigh) bg-(--color-compsigh)/10 p-6">
-            <div className="mb-6 text-center">
-              <p className="text-xl text-(--color-light)">
-                Thank you for coming!
+          {config?.startTime && config.state === "pre" ? (
+            <div className="space-y-6">
+              <CountdownTimer targetDate={config.startTime} />
+              <div className="text-center">
+                <Link
+                  to="/signup"
+                  className="inline-block rounded-lg bg-(--color-compsigh) px-8 py-3 text-lg font-medium text-(--color-dark) transition-opacity hover:opacity-90"
+                >
+                  Register now
+                </Link>
+              </div>
+            </div>
+          ) : (
+            <div className="mb-6 rounded-lg border-2 border-(--color-compsigh) bg-(--color-compsigh)/10 p-6">
+              <div className="mb-6 text-center">
+                <p className="text-xl text-(--color-light)">
+                  Thank you for coming!
+                </p>
+              </div>
+              <p className="text-center text-lg text-(--color-light)">
+                Please add/view photos{" "}
+                <a
+                  href="https://photos.app.goo.gl/Kx6CPXF56N8CoEZS7"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-(--color-compsigh) underline decoration-(--color-compsigh) [text-shadow:0_0_10px_var(--color-compsigh-60)]"
+                >
+                  here
+                </a>
               </p>
             </div>
-            <p className="text-lg text-(--color-light) text-center">
-              Please add/view photos {" "}
-              <a
-                href="https://photos.app.goo.gl/Kx6CPXF56N8CoEZS7"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-(--color-compsigh) underline decoration-(--color-compsigh) [text-shadow:0_0_10px_var(--color-compsigh-60)]"
-              >
-                here
-              </a>
-            </p>
-          </div>
+          )}
         </div>
 
         {/* Description */}
@@ -83,7 +108,8 @@ export default function Home() {
             semester.
           </p>
           <p className="text-lg leading-relaxed sm:text-xl">
-            A hype weekend for meeting cool people && building cool things.
+            A hype weekend for meeting cool people &amp;&amp; building cool
+            things.
           </p>
         </section>
 
@@ -140,12 +166,12 @@ export default function Home() {
           <p className="mb-2 text-lg">Good luck, have fun!</p>
           <div className="space-y-1 text-sm">
             <p>
-              <Link
+              <a
                 href="https://compsigh.club/docs/about"
                 className="cursor-pointer text-(--color-compsigh) hover:underline hover:decoration-(--color-compsigh)"
               >
                 About
-              </Link>{" "}
+              </a>{" "}
               <a
                 href="https://compsigh.club/"
                 target="_blank"
@@ -154,13 +180,13 @@ export default function Home() {
               >
                 compsigh
               </a>{" "}
-              <span className="text-(--color-light)">•</span>{" "}
-              <Link
+              <span className="text-(--color-light)">&#8226;</span>{" "}
+              <a
                 href="https://compsigh.club/docs/code-of-conduct"
                 className="cursor-pointer text-(--color-compsigh) hover:underline hover:decoration-(--color-compsigh)"
               >
                 Code of Conduct
-              </Link>
+              </a>
             </p>
           </div>
         </footer>

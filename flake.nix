@@ -1,5 +1,5 @@
 {
-  description = "CTF Jet development environment";
+  description = "Hackathon platform — React Router v7 + MySQL + NixOS module";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -10,44 +10,57 @@
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
-        
-        bun = pkgs.bun;
-        
-        # Prisma engines for NixOS
-        prismaEngines = pkgs.prisma-engines;
-        
-        devTools = with pkgs; [
-          git
-          postgresql
-          curl
-          wget
-          typescript-language-server
-          direnv
-        ];
-        
-      in {
+      in
+      {
+        # Development shell
         devShells.default = pkgs.mkShell {
-          buildInputs = [
+          buildInputs = with pkgs; [
             bun
-            prismaEngines
-          ] ++ devTools;
-          
-          NIXPKGS_ALLOW_UNFREE = "1";
-          
-          PRISMA_QUERY_ENGINE_BINARY = "${prismaEngines}/bin/query-engine";
-          PRISMA_SCHEMA_ENGINE_BINARY = "${prismaEngines}/bin/schema-engine";
-          PRISMA_INTROSPECTION_ENGINE_BINARY = "${prismaEngines}/bin/introspection-engine";
-          PRISMA_ENGINES_CHECKSUM_IGNORE_MISSING = "1";
+            nodejs_22
+            mysql-client
+            git
+            curl
+            direnv
+          ];
+
+          shellHook = ''
+            echo "hackathon dev shell"
+          '';
         };
-        
-        packages = {
-          inherit bun prismaEngines;
-          
-          default = pkgs.symlinkJoin {
-            name = "ctfjet-dev";
-            paths = [ bun prismaEngines ];
+
+        # Production package
+        # NOTE: Before `nix build`, generate package-lock.json:
+        #   bun install && npm install --package-lock-only
+        # Then update npmDepsHash with:
+        #   nix hash path ./node_modules (or use lib.fakeHash to get the correct one from the error)
+        packages.default = pkgs.buildNpmPackage {
+          pname = "hackathon";
+          version = "0.1.0";
+          src = ./.;
+
+          # Replace with real hash after first build attempt
+          npmDepsHash = pkgs.lib.fakeHash;
+
+          nodejs = pkgs.nodejs_22;
+
+          buildPhase = ''
+            npm run build
+          '';
+
+          installPhase = ''
+            mkdir -p $out
+            cp -r build $out/build
+            cp -r node_modules $out/node_modules
+            cp package.json $out/
+            cp -r drizzle $out/drizzle 2>/dev/null || true
+          '';
+
+          meta = {
+            description = "Hackathon platform";
           };
         };
       }
-    );
+    ) // {
+      nixosModules.default = import ./nix/module.nix;
+    };
 }
